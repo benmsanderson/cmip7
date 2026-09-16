@@ -53,14 +53,30 @@ def _year(da: xr.DataArray) -> xr.DataArray:
     return da["time"].dt.year
 
 
+def compatible(weights: xr.DataArray | None, like: xr.DataArray) -> bool:
+    """Whether ``weights`` can multiply ``like`` without broadcasting it open.
+
+    An ocean field on a curvilinear (y, x) grid and an atmosphere ``areacella``
+    on (lat, lon) share no dimensions, so multiplying them would produce the
+    outer product of both grids: wrong, and large enough to kill the process.
+    """
+    if weights is None:
+        return False
+    if not set(weights.dims) <= set(like.dims):
+        return False
+    return all(weights.sizes[d] == like.sizes[d] for d in weights.dims)
+
+
 def cell_area(area: xr.DataArray | None, like: xr.DataArray, source: str = "") -> tuple[xr.DataArray, bool]:
     """Grid-cell area, falling back to cos(latitude) weights if fx is unusable.
 
     Returns the weights and whether the fallback was used. The fallback is
     proportional, not in m2, which is fine for means but not for sums.
     """
-    if area is not None:
+    if compatible(area, like):
         return area, False
+    if area is not None:
+        print(f"  WARNING: cell-area dims {tuple(area.dims)} do not fit field dims {tuple(like.dims)}: {source}")
     latname = next((n for n in ("lat", "latitude", "j") if n in like.dims), None)
     if latname is None:
         raise ValueError("no latitude dimension to build fallback weights from")
@@ -89,6 +105,10 @@ def annual_land_sum(
     Each month contributes flux x area x land fraction x seconds in that month,
     so the annual total respects the model calendar.
     """
+    if not compatible(area, da):
+        raise ValueError(f"cell area dims {tuple(area.dims)} do not fit field dims {tuple(da.dims)}")
+    if not compatible(sftlf, da):
+        raise ValueError(f"land fraction dims {tuple(sftlf.dims)} do not fit field dims {tuple(da.dims)}")
     land_area = area * (sftlf / 100.0)
     spatial = [d for d in da.dims if d != "time"]
     per_second = (da * land_area).sum(dim=spatial)  # kg s-1

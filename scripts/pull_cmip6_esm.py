@@ -24,7 +24,7 @@ import pandas as pd
 from cmip7ref import pangeo
 from cmip7ref.experiments import driving, family
 from cmip7ref.forcing import PGC_PER_PPM
-from cmip7ref.reduce import annual_global_mean, annual_land_sum, to_ppm
+from cmip7ref.reduce import annual_global_mean, annual_land_sum, compatible, to_ppm
 
 EXPERIMENTS = ["esm-hist", "esm-ssp585", "esm-ssp534-over"]
 # variable -> (table_id, reduction)
@@ -36,21 +36,39 @@ VARIABLES = {
     "co2": ("Amon", "co2"),
     "co2mass": ("Amon", "mass"),
 }
+# Physically possible range for an annual global series, by variable. Some
+# published CMIP6 stores are simply wrong - BCC-CSM2-MR esm-ssp585 fgco2 averages
+# -1e-7 kg m-2 s-1, some 450x the real flux and the wrong sign - and a series
+# outside these bounds is excluded rather than allowed into a figure.
+PLAUSIBLE = {
+    "tas": (200.0, 350.0),        # K
+    "rtmt": (-20.0, 20.0),        # W m-2
+    "nbp": (-20.0, 20.0),         # PgC yr-1
+    "fgco2": (-20.0, 20.0),       # PgC yr-1
+    "co2": (150.0, 2000.0),       # ppm
+    "co2mass": (150.0, 2000.0),   # ppm
+}
+
 # Atmospheric mass of dry air, for converting a CO2 burden in kg to ppm.
 KG_AIR = 5.1352e18
 MW_AIR, MW_CO2 = 28.9647, 44.009
 
 
-def area_for(ds, source_id: str | None = None, ocean: bool = False):
-    """Cell area: from the store if present, else the model's fx field."""
+def area_for(ds, like, source_id: str | None = None, ocean: bool = False):
+    """Cell area that actually fits ``like``: from the store, else the fx field.
+
+    Only a field whose dimensions match is returned - an atmosphere areacella
+    is no use for an ocean field on a curvilinear grid, and silently pairing
+    them broadcasts both grids together.
+    """
     for name in ("areacella", "areacello", "areacell"):
-        if name in ds:
+        if name in ds and compatible(ds[name], like):
             return ds[name]
     if source_id is None:
         return None
-    for name in (("areacello", "areacella") if ocean else ("areacella",)):
+    for name in (("areacello", "areacella") if ocean else ("areacella", "areacello")):
         area = pangeo.fx(source_id, name)
-        if area is not None:
+        if compatible(area, like):
             return area
     return None
 
@@ -64,7 +82,7 @@ def reduce_store(row, kind: str) -> pd.DataFrame | None:
     if kind == "co2":
         da = pangeo.surface_level(da)
     if kind in ("mean", "co2"):
-        values, fell_back = annual_global_mean(da, area_for(ds, row.source_id), source=row.zstore)
+        values, fell_back = annual_global_mean(da, area_for(ds, da, row.source_id), source=row.zstore)
         if kind == "co2":
             values, units = to_ppm(values, units)
     elif kind == "mass":
@@ -73,12 +91,12 @@ def reduce_store(row, kind: str) -> pd.DataFrame | None:
         values = annual.to_series() * (MW_AIR / MW_CO2) / KG_AIR * 1e6
         units, fell_back = "ppm", False
     else:  # land_sum / ocean_sum, both kg m-2 s-1 integrated over their mask
-        area = area_for(ds, row.source_id, ocean=(kind == "ocean_sum"))
+        area = area_for(ds, da, row.source_id, ocean=(kind == "ocean_sum"))
         if area is None:
             print("    skipped: no cell area available, and a sum cannot use cos-latitude weights")
             return None
         mask = pangeo.fx(row.source_id, "sftlf") if kind == "land_sum" else None
-        if mask is None:
+        if not compatible(mask, da):
             # fgco2 is already zero on land, so an unmasked sum is correct there.
             mask = (area * 0 + 100.0).rename("sftlf")
         values, fell_back = annual_land_sum(da, area, mask, source=row.zstore)
@@ -118,7 +136,7 @@ def main() -> None:
     dask.config.set(scheduler="synchronous")
 
     args.outdir.mkdir(parents=True, exist_ok=True)
-    coverage, written, failures = [], [], []
+    coverage, written, failures, excluded = [], [], [], []
     for variable in args.variables:
         table, kind = VARIABLES[variable]
         frames = []
@@ -134,8 +152,16 @@ def main() -> None:
                     print(f"    FAILED {type(exc).__name__}: {str(exc)[:120]}")
                     traceback.clear_frames(exc.__traceback__)
                     continue
-                if out is not None:
-                    frames.append(out)
+                if out is None:
+                    continue
+                low, high = PLAUSIBLE[variable]
+                median = float(out["value"].median())
+                if not low <= median <= high:
+                    excluded.append((variable, experiment, row.source_id, median))
+                    print(f"    EXCLUDED: median {median:.3g} outside the plausible "
+                          f"range {low} to {high} for {variable}")
+                    continue
+                frames.append(out)
 
         # Written per variable so that a crash on a later one keeps this one.
         if frames:
@@ -177,6 +203,11 @@ def main() -> None:
             print(f"  {model} {experiment}: mean offset {offset.mean():+.2f} ppm "
                   f"(range {offset.min():+.2f} to {offset.max():+.2f}, {len(shared)} yr), "
                   f"equivalent to {offset.mean() * PGC_PER_PPM:+.1f} PgC")
+
+    if excluded:
+        print(f"\n{len(excluded)} series excluded as non-physical (bad published data):")
+        for variable, experiment, model, median in excluded:
+            print(f"  {variable} {experiment} {model}: median {median:.4g}")
 
     if failures:
         print(f"\n{len(failures)} store(s) failed:")

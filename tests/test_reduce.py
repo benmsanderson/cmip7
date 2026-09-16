@@ -111,3 +111,27 @@ def test_stac_item_end_year_is_exclusive():
     assert item.years == (1850, 2021)
     ongoing = StacItem("id", {"start_datetime": "2022-01-16T00:00:00Z", "end_datetime": "2100-12-16T00:00:00Z"}, {})
     assert ongoing.years == (2022, 2100)
+
+
+def test_compatible_rejects_mismatched_grids():
+    """An atmosphere area must never be paired with an ocean field."""
+    from cmip7ref.reduce import compatible
+
+    ocean = xr.DataArray(np.zeros((2, 3, 4)), dims=("time", "y", "x"))
+    atmos_area = _area()  # (lat, lon)
+    assert compatible(atmos_area, ocean) is False
+    assert compatible(None, ocean) is False
+
+    ocean_area = xr.DataArray(np.ones((3, 4)), dims=("y", "x"))
+    assert compatible(ocean_area, ocean) is True
+    wrong_size = xr.DataArray(np.ones((3, 9)), dims=("y", "x"))
+    assert compatible(wrong_size, ocean) is False
+
+
+def test_land_sum_refuses_mismatched_area():
+    from cmip7ref.reduce import annual_land_sum
+
+    flux = _grid([1e-9] * 12)
+    bad_area = xr.DataArray(np.ones((3, 4)), dims=("y", "x"))
+    with pytest.raises(ValueError, match="do not fit field dims"):
+        annual_land_sum(flux, bad_area, _area())

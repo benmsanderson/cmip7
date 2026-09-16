@@ -162,6 +162,14 @@ no cell-area field, which is exact for regular lat-lon grids and approximate
 otherwise. Sums (`nbp`, `fgco2`) are never computed this way — they are skipped
 if no area field is found.
 
+**Two CMIP6 series are excluded, for opposite reasons.** MRI-ESM2-0 `fgco2` has
+no cell-area field on a grid that matches its ocean output, and an area-weighted
+sum cannot fall back to cos-latitude weights, so it is skipped. BCC-CSM2-MR
+`esm-ssp585` `fgco2` is excluded as non-physical: the published field averages
+-1e-7 kg m-2 s-1, about 450 times the real flux and the wrong sign, which
+integrates to -2473 PgC yr-1. Each pull is screened against a plausible range
+per variable and anything outside it is reported and dropped rather than written.
+
 ## CMIP6 coverage
 
 ESGF's OPeNDAP endpoints are advertised but return 404 at every node tried, so
@@ -170,3 +178,16 @@ than ESGF's: there is **no `nbp`, `rtmt` or `co2mass` for `esm-ssp585`** on
 Pangeo, and no `esm-ssp534-over` for the variables wanted. `tas` is available for
 9 models in both `esm-hist` and `esm-ssp585`. Per-file coverage is printed by
 `pull_cmip6_esm.py` and recorded in the CSVs themselves.
+
+| variable | esm-hist | esm-ssp585 | notes |
+|---|---|---|---|
+| `tas` | 13 | 9 | 9 models have both |
+| `fgco2` | 11 | 7 | MRI-ESM2-0 skipped, BCC-CSM2-MR esm-ssp585 excluded |
+| `nbp` | 3 | 0 | not published on Pangeo for the scenario |
+| `co2` | 4 | 2 | 3-D field, lowest model level taken |
+| `rtmt` | 1 | 0 | GFDL-ESM4 only |
+| `co2mass` | 1 | 0 | GFDL-ESM4 only — the whole basis for the proxy-error estimate |
+
+Ocean uptake for 2010-2019 comes out at 2.4-3.1 PgC yr-1 across models against
+the Global Carbon Budget's ~2.5, and the land sink at 0.0-1.7 PgC yr-1, which is
+the expected spread for `nbp` including land-use fluxes.
