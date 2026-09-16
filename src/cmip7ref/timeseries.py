@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import re
 from collections.abc import Iterable
 
 import pandas as pd
@@ -58,14 +59,17 @@ def series_to_frame(series: Iterable[dict]) -> pd.DataFrame:
             )
         )
     if not frames:
-        return pd.DataFrame(columns=[*MEMBER_KEYS, "mip_era", "region", "statistic", "year", "value", "units", "execution_id"])
+        empty = [*MEMBER_KEYS, "mip_era", "region", "statistic", "year", "value", "units", "execution_id"]
+        return pd.DataFrame(columns=empty)
     df = pd.concat(frames, ignore_index=True)
     df["family"] = df["experiment_id"].map(family)
     df["driving"] = df["experiment_id"].map(driving)
     return df
 
 
-def fetch_global_mean(client: RefClient, variable_id: str = "tas", mip_era: str = "CMIP7", **dimensions: str) -> pd.DataFrame:
+def fetch_global_mean(
+    client: RefClient, variable_id: str = "tas", mip_era: str = "CMIP7", **dimensions: str
+) -> pd.DataFrame:
     """Annual global-mean series from ESMValTool's global-mean-timeseries diagnostic.
 
     Works for ``mip_era="CMIP6"`` too; there the member dimension is called
@@ -88,24 +92,50 @@ def models_with(df: pd.DataFrame, families: Iterable[str]) -> list[str]:
     return sorted(m for m, fams in have.items() if need <= fams)
 
 
-def anomalies(df: pd.DataFrame, baseline: tuple[int, int] = (1850, 1900)) -> pd.DataFrame:
-    """Add an ``anomaly`` column relative to each model's historical baseline.
+def realisation(variant_label: str) -> str | None:
+    """The ``r<n>`` part of a variant label.
 
-    Each scenario member is referenced to the historical member with the same
-    variant_label, since that is the run it branches from. If there is no
-    matching historical member, the model's historical ensemble-mean baseline is
-    used instead.
+    Historical and scenario members of the same realisation can differ in their
+    i/p/f indices (``esm-hist r7i1p1f2`` continues as ``r7i1p1f1``), so the
+    realisation index is what identifies a continuing run.
+    """
+    m = re.match(r"^(r\d+)", str(variant_label))
+    return m[1] if m else None
+
+
+def anomalies(df: pd.DataFrame, baseline: tuple[int, int] = (1850, 1900)) -> pd.DataFrame:
+    """Add ``anomaly`` and ``baseline_member`` columns, relative to historical.
+
+    Each member is referenced to the historical member with the same realisation
+    index (ignoring i/p/f), since that is the run it branches from. Failing that,
+    the model's historical ensemble mean is used and ``baseline_member`` records
+    ``"ensemble-mean"``.
+
+    Emissions-driven members take emissions-driven (``esm-``) historical
+    baselines and concentration-driven members take concentration-driven ones;
+    the two are never mixed.
     """
     y0, y1 = baseline
+    df = df.copy()
+    df["realisation"] = df["variant_label"].map(realisation)
+
     hist = df[(df["family"] == "historical") & df["year"].between(y0, y1)]
-    by_member = hist.groupby(["source_id", "variant_label"])["value"].mean()
-    by_model = by_member.groupby("source_id").mean()
+    by_member = hist.groupby(["source_id", "driving", "realisation"]).agg(
+        baseline=("value", "mean"), baseline_member=("variant_label", "first")
+    )
+    by_model = hist.groupby(["source_id", "driving"])["value"].mean()
 
-    def base(row: pd.Series) -> float:
-        return by_member.get((row.source_id, row.variant_label), by_model.get(row.source_id, float("nan")))
+    keys = df[["source_id", "driving", "realisation"]].drop_duplicates()
+    rows = []
+    for k in keys.itertuples(index=False):
+        key = (k.source_id, k.driving, k.realisation)
+        if key in by_member.index:
+            base, member = by_member.loc[key, "baseline"], by_member.loc[key, "baseline_member"]
+        else:
+            base = by_model.get((k.source_id, k.driving), float("nan"))
+            member = "ensemble-mean"
+        rows.append({**k._asdict(), "baseline": base, "baseline_member": member})
 
-    keys = df[["source_id", "variant_label"]].drop_duplicates()
-    keys["baseline"] = [base(r) for r in keys.itertuples()]
-    out = df.merge(keys, on=["source_id", "variant_label"], how="left")
+    out = df.merge(pd.DataFrame(rows), on=["source_id", "driving", "realisation"], how="left")
     out["anomaly"] = out["value"] - out["baseline"]
-    return out
+    return out.drop(columns="realisation")

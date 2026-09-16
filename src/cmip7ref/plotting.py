@@ -49,8 +49,12 @@ def plot_trajectories(
     value: str = "anomaly",
     ylabel: str = "Global mean surface air temperature\nchange from 1850–1900 (°C)",
     title: str | None = None,
+    titles: dict[str, str] | None = None,
 ) -> plt.Figure:
-    """One panel per model: thin lines for members, a thick line for the ensemble mean."""
+    """One panel per model: thin lines for members, a thick line for the ensemble mean.
+
+    ``titles`` overrides the panel heading for a given source_id.
+    """
     models = list(models) if models is not None else sorted(df["source_id"].unique())
     if not models:
         raise ValueError("no models to plot")
@@ -85,7 +89,7 @@ def plot_trajectories(
                     color=INK,
                 )
         exps = ", ".join(sorted(sub.loc[sub["family"].isin(families), "experiment_id"].unique()))
-        ax.set_title(model, fontsize=11, color=INK, loc="left", pad=16)
+        ax.set_title((titles or {}).get(model, model), fontsize=11, color=INK, loc="left", pad=16)
         ax.text(0, 1.02, exps, transform=ax.transAxes, fontsize=7.5, color=MUTED, va="bottom")
         ax.legend(frameon=False, fontsize=8, loc="upper left", labelcolor=INK)
         ax.set_xlim(1850, max(2100, int(sub["year"].max())) + 8)
