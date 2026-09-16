@@ -58,7 +58,7 @@ def series_to_frame(series: Iterable[dict]) -> pd.DataFrame:
             )
         )
     if not frames:
-        return pd.DataFrame(columns=[*MEMBER_KEYS, "region", "statistic", "year", "value", "units", "execution_id"])
+        return pd.DataFrame(columns=[*MEMBER_KEYS, "mip_era", "region", "statistic", "year", "value", "units", "execution_id"])
     df = pd.concat(frames, ignore_index=True)
     df["family"] = df["experiment_id"].map(family)
     df["driving"] = df["experiment_id"].map(driving)
@@ -66,7 +66,11 @@ def series_to_frame(series: Iterable[dict]) -> pd.DataFrame:
 
 
 def fetch_global_mean(client: RefClient, variable_id: str = "tas", mip_era: str = "CMIP7", **dimensions: str) -> pd.DataFrame:
-    """Annual global-mean series from ESMValTool's global-mean-timeseries diagnostic."""
+    """Annual global-mean series from ESMValTool's global-mean-timeseries diagnostic.
+
+    Works for ``mip_era="CMIP6"`` too; there the member dimension is called
+    ``member_id`` and is mapped onto ``variant_label``.
+    """
     raw = client.metric_values(
         *GMT_DIAGNOSTIC,
         value_type="series",

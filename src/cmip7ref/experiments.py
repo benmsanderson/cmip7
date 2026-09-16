@@ -4,8 +4,9 @@ A model runs either the concentration-driven or the emissions-driven
 (``esm-``) version of each experiment, and we treat the two as the same thing
 when comparing trajectories. The ``driving`` column records which one it was.
 
-ScenarioMIP experiments are named ``scen7-<name>`` / ``esm-scen7-<name>``,
-and their family is ``<name>`` (``vl``, ``h``, ...).
+CMIP7 ScenarioMIP experiments are named ``scen7-<name>`` / ``esm-scen7-<name>``
+and their family is ``<name>`` (``vl``, ``h``, ...). CMIP6 SSPs are their own
+family (``ssp126``, ...).
 """
 
 from __future__ import annotations
@@ -18,7 +19,8 @@ _FIXED = {
     "piControl": "piControl",
     "esm-piControl": "piControl",
 }
-_SCENARIO = re.compile(r"^(?:esm-)?scen7-(?P<name>[a-z0-9]+)$")
+# CMIP7 ScenarioMIP: scen7-vl, esm-scen7-h, ...  CMIP6 ScenarioMIP: ssp126, ...
+_SCENARIO = re.compile(r"^(?:esm-)?(?:scen7-(?P<name>[a-z0-9]+)|(?P<ssp>ssp\d{3}))$")
 
 
 def family(experiment_id: str) -> str | None:
@@ -26,7 +28,9 @@ def family(experiment_id: str) -> str | None:
     if experiment_id in _FIXED:
         return _FIXED[experiment_id]
     m = _SCENARIO.match(experiment_id)
-    return m["name"] if m else None
+    if not m:
+        return None
+    return m["name"] or m["ssp"]
 
 
 def driving(experiment_id: str) -> str:

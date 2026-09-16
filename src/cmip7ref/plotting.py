@@ -18,6 +18,11 @@ FAMILY_STYLE = {
     "ml": {"color": "#4a3aa7", "label": "ML"},
     "m": {"color": "#eda100", "label": "M"},
     "ln": {"color": "#e87ba4", "label": "LN"},
+    # CMIP6 SSPs, ordered cold-to-hot like the CMIP7 scenarios above
+    "ssp126": {"color": "#2a78d6", "label": "SSP1-2.6"},
+    "ssp245": {"color": "#1baf7a", "label": "SSP2-4.5"},
+    "ssp370": {"color": "#eda100", "label": "SSP3-7.0"},
+    "ssp585": {"color": "#eb6834", "label": "SSP5-8.5"},
 }
 
 INK = "#0b0b0b"
