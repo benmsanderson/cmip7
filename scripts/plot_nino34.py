@@ -1,10 +1,16 @@
 """Recent observed Nino3.4 against the CMIP6 ssp245 distribution.
 
-Models and observations are processed identically: a centred 30-year running
-monthly climatology is removed, then a 3-month running mean applied. That is the
-continuous form of CPC's ONI, whose base period moves every five years, and
-re-deriving the observed anomaly this way reproduces CPC's published ONI to
-0.05 degC.
+Models and observations are processed identically, on CPC's own base-period
+scheme: a 30-year climatology held fixed across each 5-year block and centred on
+it, falling back to the latest complete decade-aligned base (1991-2020 today)
+where a centred one would need data the record does not have. Re-deriving the
+observed anomaly this way reproduces CPC's published ONI to 0.02 degC for the
+current event.
+
+One asymmetry survives and is reported at the end: a model can see its own
+future, so its present-day block gets a properly centred base, while the
+observations cannot and fall back. ``--realtime`` forces the trailing base on
+both, which is the symmetric comparison.
 
 The model band is the spread of ENSO states the ensemble produces at a given
 time. It is not a forecast envelope: model ENSO is not phase-locked to the real
@@ -22,7 +28,7 @@ import pandas as pd
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt  # noqa: E402
 
-from cmip7ref.indices import anomalies_running, running_mean_3, window_complete  # noqa: E402
+from cmip7ref.indices import anomalies_cpc_blocks, running_mean_3  # noqa: E402
 from cmip7ref.observations import oni  # noqa: E402
 
 INK, MUTED, GRID = "#0b0b0b", "#52514e", "#e4e3df"
@@ -30,16 +36,26 @@ BAND, BAND_DARK = "#bcd4f0", "#2a78d6"
 ENSO_THRESHOLD = 0.5
 
 
-def model_oni(df: pd.DataFrame, window: int) -> pd.DataFrame:
-    """Per model: splice the experiments, remove a running climatology, smooth."""
+def model_oni(df: pd.DataFrame, window: int, realtime: bool = False) -> pd.DataFrame:
+    """Per model: splice the experiments, remove the CPC-style climatology, smooth."""
     out = []
-    for model, g in df.groupby("source_id"):
+    for _, g in df.groupby("source_id"):
         g = g.sort_values(["year", "month"]).drop_duplicates(["year", "month"])
-        g = g.assign(anomaly=anomalies_running(g, window_years=window, column="value"))
+        anomaly, centred = anomalies_cpc_blocks(g, base_years=window, column="value", realtime=realtime)
+        g = g.assign(anomaly=anomaly, base_centred=centred)
         g = g.assign(oni=running_mean_3(g, column="anomaly"))
-        g = g.assign(window_complete=window_complete(g, window_years=window, column="value"))
-        out.append(g[["source_id", "year", "month", "value", "anomaly", "oni", "window_complete"]])
+        out.append(g[["source_id", "year", "month", "value", "anomaly", "oni", "base_centred"]])
     return pd.concat(out, ignore_index=True)
+
+
+def observed(window: int, realtime: bool = False) -> pd.DataFrame:
+    """Observed Nino3.4 put through the same scheme, keeping CPC's own ONI beside it."""
+    obs = oni()
+    obs["own"], obs["base_centred"] = anomalies_cpc_blocks(
+        obs, base_years=window, column="sst", realtime=realtime
+    )
+    obs["time"] = obs.year + (obs.month - 0.5) / 12
+    return obs
 
 
 def _style(ax):
@@ -64,31 +80,31 @@ def main() -> None:
                    metavar=("START", "END"), help="window for the distribution panel")
     p.add_argument("--pool-years", type=int, default=11,
                    help="centred window, in years, over which the ensemble distribution is pooled")
+    p.add_argument("--realtime", action="store_true",
+                   help="force the trailing base on models too, as an analyst today would have to")
     p.add_argument("--min-models", type=int, default=10,
                    help="drop time steps covered by fewer models than this")
     p.add_argument("--out", type=Path, default=Path("figures/nino34_context.png"))
     p.add_argument("--csv", type=Path, default=Path("data/cmip6_nino34_oni.csv"))
     args = p.parse_args()
 
-    models = model_oni(pd.read_csv(args.data), args.window)
+    raw = pd.read_csv(args.data)
+    models = model_oni(raw, args.window, realtime=args.realtime)
     models.to_csv(args.csv, index=False, float_format="%.4f")
     print(f"Wrote {args.csv} ({models.source_id.nunique()} models)")
 
-    obs = oni()
-    # Process the observations exactly as the models are processed, so the
-    # comparison is like for like, and keep CPC's official ONI alongside.
-    obs["own"] = anomalies_running(obs, window_years=args.window, column="sst")
-    obs["time"] = obs.year + (obs.month - 0.5) / 12
+    obs = observed(args.window, realtime=args.realtime)
     models["time"] = models.year + (models.month - 0.5) / 12
 
     # Spread of ENSO states across the ensemble. Percentiles of 41 values at a
     # single month are themselves noisy, so each year pools every model and every
     # month within a centred window - the distribution moves slowly, the sampling
     # noise does not.
-    # Only years with a complete climatology window: a truncated one leaves part
-    # of the warming trend in the anomaly and would widen the band spuriously.
+    # Only blocks on a properly centred base: a fallback base leaves part of the
+    # warming trend in the anomaly and would widen the band spuriously.
     valid = models.dropna(subset=["oni"])
-    valid = valid[valid.window_complete]
+    if not args.realtime:
+        valid = valid[valid.base_centred]
     half = args.pool_years // 2
     years = range(int(valid.year.min()) + half, int(valid.year.max()) - half + 1)
     rows = []
@@ -128,7 +144,7 @@ def main() -> None:
                 textcoords="offset points", fontsize=9, color=INK)
     ax.plot([peak.year + (peak.month - 0.5) / 12], [peak.own], "o", color=INK, markersize=4)
     ax.set_xlim(*args.years)
-    ax.set_ylabel("Niño3.4 anomaly (°C)\n30-year running base, 3-month mean", fontsize=9, color=INK)
+    ax.set_ylabel("Niño3.4 anomaly (°C)\nCPC base-period scheme, 3-month mean", fontsize=9, color=INK)
     ax.set_title("Observed Niño3.4 against the CMIP6 range", fontsize=11, color=INK, loc="left")
     ax.legend(frameon=False, fontsize=8, loc="upper left", labelcolor=INK)
 
@@ -163,8 +179,8 @@ def main() -> None:
 
     # -- numbers for the slide --------------------------------------------
     print(f"\nObserved peak since 2024: {peak.season} {int(peak.year)} = {peak.own:+.2f} °C "
-          f"(CPC's published ONI: {peak.anomaly:+.2f}; the gap is the truncated "
-          f"climatology window at the end of the record)")
+          f"(CPC's published ONI: {peak.anomaly:+.2f}; the remaining gap is base-period "
+          f"bookkeeping and 2-decimal rounding in the published file)")
     print(f"  percentile within CMIP6 {lo}-{hi} monthly values: {pct:.2f}")
     exceed = (window.oni >= peak.own).mean()
     print(f"  CMIP6 months at or above it: {exceed * 100:.2f}%  "
@@ -174,6 +190,17 @@ def main() -> None:
     record = obs.loc[obs.own.idxmax()]
     print(f"\nObserved record: {record.season} {int(record.year)} = {record.own:+.2f} °C "
           f"(CPC ONI {record.anomaly:+.2f})")
+    # The one asymmetry CPC's scheme leaves: models see their own future.
+    alt_models = model_oni(raw, args.window, realtime=not args.realtime)
+    alt_obs = observed(args.window, realtime=not args.realtime)
+    alt_peak = alt_obs.loc[alt_obs[alt_obs.year >= 2024].own.idxmax()]
+    alt_window = alt_models.dropna(subset=["oni"])
+    alt_window = alt_window[alt_window.year.between(lo, hi)]
+    label = "real-time (trailing base both sides)" if not args.realtime else "centred base where available"
+    print(f"\nSensitivity to the base-period asymmetry, {label}:")
+    print(f"  observed peak {alt_peak.own:+.2f} °C, "
+          f"{(alt_window.oni < alt_peak.own).mean() * 100:.1f}th percentile of CMIP6")
+
     print("\nCMIP6 ONI standard deviation by period (ENSO amplitude):")
     for y0, y1 in ((1950, 1990), (1990, 2010), (2010, 2041)):
         s = valid[valid.year.between(y0, y1)]

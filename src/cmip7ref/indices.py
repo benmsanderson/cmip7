@@ -114,3 +114,58 @@ def running_mean_3(df, column: str = "anomaly"):
     """Three-month running mean, the ONI's smoothing."""
     out = df.sort_values(["year", "month"])
     return out[column].rolling(3, center=True, min_periods=3).mean().reindex(df.index)
+
+
+def anomalies_cpc_blocks(
+    df,
+    block_years: int = 5,
+    base_years: int = 30,
+    column: str = "value",
+    anchor: int = 1950,
+    realtime: bool = False,
+):
+    """Anomalies on CPC's base-period scheme, as used for the published ONI.
+
+    CPC holds a 30-year climatology fixed across each 5-year block of the record
+    and centres that climatology on the block, so the base period steps forward
+    every five years rather than drifting continuously. Where a centred base
+    would need data the record does not have, CPC falls back to the most recent
+    complete, decade-aligned 30 years - 1991-2020 for the present day.
+
+    Returns the anomaly and a flag marking rows whose base period was properly
+    centred, since a fallback base leaves some of the warming trend behind.
+
+    ``realtime=True`` forces the trailing fallback base everywhere, which is what
+    an analyst could actually have computed at the time. Models can see their own
+    future and observations cannot, so this is the symmetric choice when the
+    comparison is against a present-day observation.
+    """
+    import pandas as pd
+
+    years = df["year"].astype(int)
+    ymin, ymax = int(years.min()), int(years.max())
+
+    # The fallbacks: the most recent and earliest complete decade-aligned bases.
+    latest_hi = ymax - (ymax % 10)
+    if latest_hi - base_years + 1 < ymin:
+        latest_hi = ymin + base_years - 1
+    latest_lo = latest_hi - base_years + 1
+    earliest_lo = ymin + (-ymin % 10 if ymin % 10 else 0)
+    earliest_hi = earliest_lo + base_years - 1
+
+    anomaly = pd.Series(index=df.index, dtype=float)
+    centred = pd.Series(False, index=df.index)
+
+    first_block = ymin - ((ymin - anchor) % block_years)
+    for block_start in range(first_block, ymax + 1, block_years):
+        centre = block_start + block_years / 2
+        lo = int(centre - base_years / 2)
+        hi = lo + base_years - 1
+        is_centred = (lo >= ymin) and (hi <= ymax) and not realtime
+        if not is_centred:
+            lo, hi = (latest_lo, latest_hi) if (hi > ymax or realtime) else (earliest_lo, earliest_hi)
+        climatology = df[years.between(lo, hi)].groupby("month")[column].mean()
+        rows = years.between(block_start, block_start + block_years - 1)
+        anomaly[rows] = df.loc[rows, column] - df.loc[rows, "month"].map(climatology)
+        centred[rows] = is_centred
+    return anomaly, centred

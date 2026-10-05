@@ -176,23 +176,28 @@ per variable and anything outside it is reported and dropped rather than written
 
 `cmip6_nino34.csv` holds the raw box mean (5°S–5°N, 170°W–120°W) so the anomaly
 definition stays a plotting choice. `cmip6_nino34_oni.csv` adds the anomalies
-used in `figures/nino34_context.png`: a centred 30-year running monthly
-climatology removed, then a 3-month running mean — the continuous form of CPC's
-ONI, whose base period shifts every five years. Re-deriving the *observed*
-anomaly this way reproduces CPC's published ONI with correlation 0.997 and a
-mean absolute difference of 0.045 °C, which is what makes model and observed
-values comparable.
+used in `figures/nino34_context.png`, on **CPC's own base-period scheme**: a
+30-year climatology held fixed across each 5-year block and centred on it,
+falling back to the latest complete decade-aligned base (1991–2020 today) where
+a centred one would need data the record does not have, then a 3-month running
+mean. Re-deriving the *observed* anomaly this way gives **+2.14 °C for JAS 2026
+against CPC's published +2.16**; what remains is base-period bookkeeping and the
+2-decimal rounding of the published file.
 
 Three things to respect when using it:
 
-- **Observations are reprocessed, not taken as published.** The figure's observed
-  line is Niño3.4 put through the model pipeline, so JAS 2026 reads +1.98 °C
-  where CPC publishes +2.16 °C. Both appear on the figure.
-- **`window_complete` marks where the climatology window is whole.** At the ends
-  of a record the centred window is truncated, one-sided, and leaves part of the
-  warming trend in the anomaly — worth 0.1–0.2 °C in the most recent years. The
-  band and the statistics use complete-window rows only, which is why it stops
-  around 2041 rather than 2060. Extending it means pulling model data past 2060.
+- **Observations are reprocessed, not taken as published**, so that models and
+  observations get identical treatment. Both numbers appear on the figure.
+- **`base_centred` marks blocks whose base period was properly centred.** Where
+  it is false the base is a trailing fallback, which leaves some of the warming
+  trend in the anomaly. The band and statistics use centred blocks only, which
+  is why the band stops near 2041 rather than 2060; extending it means pulling
+  model data past 2060.
+- **One asymmetry is unavoidable**: a model can see its own future, so its
+  present-day block gets a centred base, while the observations cannot and fall
+  back to 1991–2020. `plot_nino34.py --realtime` forces the trailing base on
+  both, the symmetric comparison, and the script reports the percentile under
+  both conventions (96.6th centred, 98.5th real-time).
 - **Weighting falls back where cell areas do not fit**: 34 models use
   `areacello`, 7 use cos-latitude (adequate for a 10°-tall equatorial box).
 
