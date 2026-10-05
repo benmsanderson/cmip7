@@ -175,8 +175,15 @@ per variable and anything outside it is reported and dropped rather than written
 ## Niño3.4
 
 `cmip6_nino34.csv` holds the raw box mean (5°S–5°N, 170°W–120°W) so the anomaly
-definition stays a plotting choice. `cmip6_nino34_oni.csv` adds the anomalies
-used in `figures/nino34_context.png`, on **CPC's own base-period scheme**: a
+definition stays a plotting choice. `cmip6_nino34_oni.csv` adds the anomalies used in
+`figures/nino34_context.png`. The key figure uses a **fixed 1991-2020
+climatology for both models and observations** — the same baseline on both
+sides, and also CPC's current operational base, so the observed current event
+reproduces their published ONI (+2.14 against +2.16). A fixed base keeps the
+warming trend in the anomaly deliberately: the model band rises through the
+century, showing the background Pacific warming a future El Niño sits on top of.
+
+`--scheme cpc` switches both sides to **CPC's shifting base-period scheme**: a
 30-year climatology held fixed across each 5-year block and centred on it,
 falling back to the latest complete decade-aligned base (1991–2020 today) where
 a centred one would need data the record does not have, then a 3-month running
@@ -193,11 +200,14 @@ Three things to respect when using it:
   trend in the anomaly. The band and statistics use centred blocks only, which
   is why the band stops near 2041 rather than 2060; extending it means pulling
   model data past 2060.
-- **One asymmetry is unavoidable**: a model can see its own future, so its
-  present-day block gets a centred base, while the observations cannot and fall
-  back to 1991–2020. `plot_nino34.py --realtime` forces the trailing base on
-  both, the symmetric comparison, and the script reports the percentile under
-  both conventions (96.6th centred, 98.5th real-time).
+- **The scheme changes the headline percentile.** On the shared fixed baseline
+  the JAS 2026 peak is at the 92.5th percentile of CMIP6 for 2011–2041; on the
+  CPC scheme, which removes the trend from both sides, it is at the 96.6th. The
+  difference is the background warming the models carry into that window.
+- **Under `--scheme cpc` one asymmetry is unavoidable**: a model can see its own
+  future, so its present-day block gets a centred base while the observations
+  fall back to 1991–2020. The fixed baseline has no such problem, which is the
+  main reason it is the default.
 - **Weighting falls back where cell areas do not fit**: 34 models use
   `areacello`, 7 use cos-latitude (adequate for a 10°-tall equatorial box).
 
