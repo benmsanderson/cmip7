@@ -13,6 +13,9 @@ import xarray as xr
 
 # Nino3.4: 5S-5N, 170W-120W (190-240 degrees east).
 NINO34 = {"lat": (-5.0, 5.0), "lon": (190.0, 240.0)}
+# The tropical belt CPC subtracts to form the RONI: 20S-20N, all longitudes.
+TROPICS = {"lat": (-20.0, 20.0), "lon": (0.0, 360.0)}
+REGIONS = {"nino34": NINO34, "tropics": TROPICS}
 
 LAT_NAMES = ("lat", "latitude", "nav_lat")
 LON_NAMES = ("lon", "longitude", "nav_lon")
@@ -169,3 +172,24 @@ def anomalies_cpc_blocks(
         anomaly[rows] = df.loc[rows, column] - df.loc[rows, "month"].map(climatology)
         centred[rows] = is_centred
     return anomaly, centred
+
+
+def relative_index(nino34: "object", tropical: "object", period=None):
+    """CPC's relative Nino3.4: the index minus the tropical mean, rescaled.
+
+    RONI = (Nino3.4 anomaly - tropical-mean anomaly) x s, where s makes the
+    result's variance equal that of the original Nino3.4 anomaly. Subtracting the
+    20N-20S mean removes the background tropical warming, so what remains is the
+    departure *relative to the tropics* - the part that drives the atmospheric
+    response - and the rescaling restores the familiar +/-0.5 thresholds.
+
+    ``period`` is a boolean mask selecting the years the scale factor is
+    estimated over; the default uses every value available.
+    """
+    import numpy as np
+
+    difference = nino34 - tropical
+    mask = period if period is not None else difference.notna()
+    spread = difference[mask].std()
+    scale = (nino34[mask].std() / spread) if spread and np.isfinite(spread) else float("nan")
+    return difference * scale, float(scale)

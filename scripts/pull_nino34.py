@@ -1,4 +1,8 @@
-"""Monthly Nino3.4 SST for CMIP6 historical + ssp245, one member per model.
+"""Monthly Nino3.4 and tropical-mean SST for CMIP6 historical + ssp245.
+
+Both regions come out of a single pass over each store, because the Nino3.4 box
+is small but the stores chunk in time only: reading it costs the whole spatial
+field anyway, so the 20S-20N belt the RONI needs is nearly free alongside it.
 
 Read lazily from the Pangeo Zarr mirror. The stores chunk in time only, so a
 Nino3.4 box still pulls the full spatial field for each time chunk: restricting
@@ -19,7 +23,7 @@ import dask
 import pandas as pd
 
 from cmip7ref import pangeo
-from cmip7ref.indices import NINO34, box_mean, monthly_frame
+from cmip7ref.indices import REGIONS, box_mean, monthly_frame
 from cmip7ref.reduce import compatible
 
 EXPERIMENTS = ("historical", "ssp245")
@@ -29,7 +33,7 @@ PLAUSIBLE_SST = (20.0, 34.0)
 
 
 def extract(row, years: tuple[int, int], variable: str) -> pd.DataFrame | None:
-    """Monthly Nino3.4 mean for one catalog row."""
+    """Monthly means for every region of interest, from one pass over the store."""
     ds = pangeo.open_store(row.zstore)
     da = ds[variable].sel(time=slice(str(years[0]), str(years[1])))
     if da.sizes.get("time", 0) == 0:
@@ -38,23 +42,31 @@ def extract(row, years: tuple[int, int], variable: str) -> pd.DataFrame | None:
 
     area = pangeo.fx(row.source_id, "areacello" if variable == "tos" else "areacella")
     weights = area if compatible(area, da) else None
-    series = box_mean(da, ds, NINO34, weights=weights).compute()
-
-    out = monthly_frame(series)
     units = da.attrs.get("units", "")
-    if units.lower() in ("k", "kelvin"):
-        out["value"] -= 273.15
-    out.insert(0, "source_id", row.source_id)
-    out.insert(1, "experiment_id", row.experiment_id)
-    out.insert(2, "variant_label", row.member_id)
-    out["grid_label"] = row.grid_label
-    out["variable_id"] = variable
-    out["units"] = "degC"
-    out["weighting"] = "areacello" if weights is not None else "cos-latitude"
-    out["source"] = "pangeo"
-    out["mip_era"] = "CMIP6"
+
+    # Both reductions are computed together: separate .compute() calls would
+    # fetch every chunk twice, and these reads are what the run costs.
+    lazy = {name: box_mean(da, ds, box, weights=weights) for name, box in REGIONS.items()}
+    computed = dict(zip(lazy, dask.compute(*lazy.values())))
+
+    frames = []
+    for name, series in computed.items():
+        out = monthly_frame(series)
+        if units.lower() in ("k", "kelvin"):
+            out["value"] -= 273.15
+        out.insert(0, "source_id", row.source_id)
+        out.insert(1, "experiment_id", row.experiment_id)
+        out.insert(2, "variant_label", row.member_id)
+        out["region"] = name
+        out["grid_label"] = row.grid_label
+        out["variable_id"] = variable
+        out["units"] = "degC"
+        out["weighting"] = "areacello" if weights is not None else "cos-latitude"
+        out["source"] = "pangeo"
+        out["mip_era"] = "CMIP6"
+        frames.append(out)
     ds.close()
-    return out
+    return pd.concat(frames, ignore_index=True)
 
 
 def main() -> None:
@@ -62,7 +74,7 @@ def main() -> None:
     p.add_argument("--years", nargs=2, type=int, default=[1950, 2060], metavar=("START", "END"))
     p.add_argument("--variable", default="tos", choices=["tos", "ts", "tas"])
     p.add_argument("--models", nargs="+", help="restrict to these source_ids")
-    p.add_argument("--out", type=Path, default=Path("data/cmip6_nino34.csv"))
+    p.add_argument("--out", type=Path, default=Path("data/cmip6_sst_regions.csv"))
     p.add_argument("--workers", type=int, default=4,
                    help="dask threads; these reads are network-bound, so a few help a lot")
     p.add_argument("--restart", action="store_true", help="ignore any existing output and start over")
@@ -83,8 +95,13 @@ def main() -> None:
     done: set[str] = set()
     if args.out.exists() and not args.restart:
         existing = pd.read_csv(args.out)
-        counts = existing.groupby("source_id").experiment_id.nunique()
-        done = set(counts[counts == len(EXPERIMENTS)].index)
+        if "region" not in existing.columns:
+            print("  (existing file predates the tropical-mean region; starting over)")
+            existing = existing.iloc[0:0]
+        counts = existing.groupby("source_id").apply(
+            lambda g: g.experiment_id.nunique() * g.region.nunique(), include_groups=False
+        ) if len(existing) else pd.Series(dtype=int)
+        done = set(counts[counts == len(EXPERIMENTS) * len(REGIONS)].index)
         print(f"resuming: {len(done)} models already complete in {args.out}")
 
     frames, failures, rejected = [], [], []
@@ -106,7 +123,7 @@ def main() -> None:
                 continue
             if out is None:
                 continue
-            median = float(out["value"].median())
+            median = float(out[out.region == "nino34"]["value"].median())
             if not PLAUSIBLE_SST[0] <= median <= PLAUSIBLE_SST[1]:
                 rejected.append((model, experiment, median))
                 print(f"    EXCLUDED: median SST {median:.2f} outside {PLAUSIBLE_SST} degC")
@@ -115,13 +132,15 @@ def main() -> None:
             args.out.parent.mkdir(parents=True, exist_ok=True)
             header = not args.out.exists()
             out.to_csv(args.out, mode="a", header=header, index=False, float_format="%.4f")
-            print(f"    {len(out)} months, mean {out['value'].mean():.2f} degC "
-                  f"({out['weighting'].iloc[0]} weights)", flush=True)
+            means = out.groupby("region")["value"].mean()
+            print(f"    {len(out) // len(REGIONS)} months  "
+                  + "  ".join(f"{k} {v:.2f} degC" for k, v in means.items())
+                  + f"  ({out['weighting'].iloc[0]} weights)", flush=True)
 
     if not args.out.exists():
         print("nothing extracted")
         return
-    df = pd.read_csv(args.out).drop_duplicates(["source_id", "experiment_id", "year", "month"])
+    df = pd.read_csv(args.out).drop_duplicates(["source_id", "experiment_id", "region", "year", "month"])
     df.to_csv(args.out, index=False, float_format="%.4f")
     print(f"\nWrote {args.out} ({len(df)} rows, {df.source_id.nunique()} models)")
 
