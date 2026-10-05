@@ -30,8 +30,10 @@ uv run scripts/pull_cmip6_esm.py
 | `forcing_co2_emissions.csv` | global CO2 emissions (GtCO2 yr-1 and PgC yr-1) | historical, H, VL |
 | `ukesm_derived.csv` | cumulative emissions, growth, airborne fraction, sinks | members with CO2 |
 | `cmip6_esm_*.csv` | CMIP6 emissions-driven precedent, one member per model | see coverage below |
-| `cmip6_nino34.csv` | monthly Niño3.4 SST (°C), historical + ssp245, 1950–2060 | 41 models, one member each |
-| `cmip6_nino34_oni.csv` | the same as anomalies and 3-month-mean ONI, with `window_complete` | 41 models |
+| `cmip6_sst_regions.csv` | monthly Niño3.4 and 20°N–20°S mean SST (°C), historical + ssp245, 1950–2060 | 41 models, one member each |
+| `cmip6_oni.csv`, `cmip6_roni.csv` | the two indices derived from it | 41 and 40 models |
+| `obs_sst_regions.csv` | the same two regions from gridded ERSSTv6, 1850–2026 | observations |
+| `obs_enso_indices.csv` | CPC's published ONI and RONI (v5 and v6), for checking | observations |
 
 ## Exact sources
 
@@ -172,10 +174,39 @@ sum cannot fall back to cos-latitude weights, so it is skipped. BCC-CSM2-MR
 integrates to -2473 PgC yr-1. Each pull is screened against a plausible range
 per variable and anything outside it is reported and dropped rather than written.
 
-## Niño3.4
+## Niño3.4 and the RONI
 
-`cmip6_nino34.csv` holds the raw box mean (5°S–5°N, 170°W–120°W) so the anomaly
-definition stays a plotting choice. `cmip6_nino34_oni.csv` adds the anomalies used in
+`cmip6_sst_regions.csv` holds raw box means — Niño3.4 (5°S–5°N, 170°W–120°W) and
+the 20°N–20°S belt the RONI subtracts — so the index definition stays a plotting
+choice. Both regions come from one pass over each store; computing them
+separately fetched every chunk twice, which is the whole cost of the run.
+
+Two indices are built from it by `plot_nino34.py --index {oni,roni}`:
+
+- **ONI**: the Niño3.4 anomaly. A fixed baseline keeps the background warming in,
+  so the model band climbs through the century.
+- **RONI**: Niño3.4 anomaly minus the tropical-mean anomaly, rescaled so its
+  variance matches Niño3.4, exactly as CPC define it. The tropical warming is
+  differenced out of both sides, so the band is flat and what remains is ENSO.
+
+Observations are reduced from gridded **ERSSTv6** through the same code, because
+CPC publish the ONI and RONI but not the tropical-mean series the RONI needs.
+That reproduces CPC's published RONI with correlation 0.999 and a mean
+difference of 0.035 °C, independently recovering their 1.26 rescale factor —
+the check that this is their recipe and not merely something like it.
+
+**The ERSST vintage matters for the event in progress.** CPC's RONI page is now
+ERSSTv6, whose high-frequency filter damps the latest months: JAS 2026 is +1.7 in
+v6 against +2.1 in v5, and CPC warn recent values can be revised for up to two
+months. `pull_obs_sst.py --version v5` switches back.
+
+**One model is dropped from the RONI.** KACE-1-0-G correlates its Niño3.4 with
+its own tropical mean at 0.98, leaving a difference of 0.16 °C that the
+rescaling would multiply by 4.8 — noise amplified into apparent ENSO. Models
+needing a factor above 3 are excluded and named; the rest run 1.23–1.82 against
+the observed 1.26.
+
+The older single-region `cmip6_nino34.csv` was replaced by `cmip6_sst_regions.csv`. `cmip6_nino34_oni.csv` adds the anomalies used in
 `figures/nino34_context.png`. The key figure uses a **fixed 1991-2020
 climatology for both models and observations** — the same baseline on both
 sides, and also CPC's current operational base, so the observed current event
@@ -195,7 +226,7 @@ Three things to respect when using it:
 
 - **Observations are reprocessed, not taken as published**, so that models and
   observations get identical treatment. Both numbers appear on the figure.
-- **`base_centred` marks blocks whose base period was properly centred.** Where
+- **`base_centred` (CPC scheme only) marks blocks whose base period was properly centred.** Where
   it is false the base is a trailing fallback, which leaves some of the warming
   trend in the anomaly. The band and statistics use centred blocks only, which
   is why the band stops near 2041 rather than 2060; extending it means pulling

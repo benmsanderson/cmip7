@@ -34,8 +34,10 @@ uv run scripts/pull_rtmt.py       # net TOA flux, drift-corrected against esm-pi
 uv run scripts/pull_forcing.py    # prescribed CO2 concentrations and global emissions
 uv run scripts/derive.py          # cumulative emissions, airborne fraction, sinks
 uv run scripts/pull_cmip6_esm.py  # CMIP6 emissions-driven precedent, read lazily
-uv run scripts/pull_nino34.py     # monthly Nino3.4 SST, CMIP6 historical + ssp245
-uv run scripts/plot_nino34.py     # observed Nino3.4 against the CMIP6 range
+uv run scripts/pull_nino34.py     # Nino3.4 and tropical-mean SST, CMIP6 historical + ssp245
+uv run scripts/pull_obs_sst.py    # the same regions from gridded ERSST, plus CPC's indices
+uv run scripts/plot_nino34.py --index roni   # ENSO with the mean-state warming removed
+uv run scripts/plot_nino34.py --index oni    # Nino3.4 on a shared fixed baseline
 uv run pytest
 ```
 
@@ -65,8 +67,8 @@ df = anomalies(df[df.source_id.isin(models)])
 | `src/cmip7ref/pangeo.py` | lazy CMIP6 access via the Pangeo Zarr mirror |
 | `src/cmip7ref/reduce.py` | area- and calendar-weighted reduction to annual global series |
 | `src/cmip7ref/forcing.py` | prescribed CO2 concentrations and global emissions |
-| `src/cmip7ref/indices.py` | Nino3.4 box mean and ONI-style anomalies |
-| `src/cmip7ref/observations.py` | observed Nino3.4 from NOAA CPC |
+| `src/cmip7ref/indices.py` | Nino3.4 / tropical box means, ONI and RONI anomalies |
+| `src/cmip7ref/observations.py` | observed SST from gridded ERSST, and CPC's published indices |
 | `src/cmip7ref/targets.py` | the approved pull list, members listed explicitly |
 | `src/cmip7ref/timeseries.py` | REF series to DataFrame, stale-execution filtering, anomalies |
 | `src/cmip7ref/experiments.py` | experiment families (`historical`/`esm-hist`, `scen7-*`, `ssp*`) |

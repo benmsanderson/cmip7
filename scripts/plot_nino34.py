@@ -65,12 +65,27 @@ def build_index(df: pd.DataFrame, index: str, baseline: tuple[int, int], scale_p
     return series.rename("index"), scale
 
 
-def model_index(df: pd.DataFrame, index: str, baseline: tuple[int, int], scale_period=None) -> pd.DataFrame:
-    out, scales = [], {}
+def model_index(df: pd.DataFrame, index: str, baseline: tuple[int, int], scale_period=None,
+                max_scale: float = 3.0):
+    """The index per model, dropping any model the RONI is undefined for.
+
+    The rescaling assumes Nino3.4 holds variance the tropical mean does not. A
+    model whose two series are nearly identical has almost none, so the
+    difference is noise and the rescale factor explodes - KACE-1-0-G correlates
+    its Nino3.4 with its tropical mean at 0.98 and needs a factor of 4.8, which
+    would amplify that noise into apparent ENSO swings.
+    """
+    out, scales, dropped = [], {}, []
     for model, g in df.groupby("source_id"):
         series, scale = build_index(g, index, baseline, scale_period)
+        if index == "roni" and scale > max_scale:
+            dropped.append((model, scale))
+            continue
         scales[model] = scale
         out.append(series.reset_index().assign(source_id=model))
+    for model, scale in dropped:
+        print(f"  EXCLUDED {model}: rescale factor {scale:.2f} exceeds {max_scale}; its Niño3.4 is "
+              "not distinguishable from its tropical mean")
     return pd.concat(out, ignore_index=True), pd.Series(scales, name="scale")
 
 
@@ -98,6 +113,8 @@ def main() -> None:
     p.add_argument("--dist-halfwidth", type=int, default=15)
     p.add_argument("--pool-years", type=int, default=11)
     p.add_argument("--min-models", type=int, default=10)
+    p.add_argument("--max-scale", type=float, default=3.0,
+                   help="drop models whose RONI rescale factor exceeds this (observed is 1.26)")
     p.add_argument("--out", type=Path, default=None)
     p.add_argument("--csv", type=Path, default=None)
     args = p.parse_args()
@@ -108,7 +125,7 @@ def main() -> None:
     csv_path = args.csv or Path(f"data/cmip6_{args.index}.csv")
     label = {"oni": "Niño3.4 anomaly (ONI)", "roni": "Relative Niño3.4 (RONI)"}[args.index]
 
-    models, scales = model_index(pd.read_csv(args.data), args.index, baseline, scale_period)
+    models, scales = model_index(pd.read_csv(args.data), args.index, baseline, scale_period, args.max_scale)
     models.to_csv(csv_path, index=False, float_format="%.4f")
     print(f"Wrote {csv_path} ({models.source_id.nunique()} models, {args.index})")
     if args.index == "roni":
@@ -116,6 +133,7 @@ def main() -> None:
               f"[{scales.min():.2f}, {scales.max():.2f}]")
 
     obs_regions = pd.read_csv(args.obs)
+    obs_source = str(obs_regions["source"].iloc[0]) if "source" in obs_regions else "observations"
     obs_series, obs_scale = build_index(obs_regions, args.index, baseline, scale_period)
     obs = obs_series.reset_index().rename(columns={"index": "value"})
     obs["time"] = obs.year + (obs.month - 0.5) / 12
@@ -158,7 +176,7 @@ def main() -> None:
     for level in (-ENSO_THRESHOLD, ENSO_THRESHOLD):
         ax.axhline(level, color=MUTED, linewidth=0.6, linestyle=(0, (4, 3)))
     ax.axhline(0, color=MUTED, linewidth=0.8)
-    ax.plot(obs.time, obs.value, color=INK, linewidth=1.1, label="Observed (ERSSTv5)")
+    ax.plot(obs.time, obs.value, color=INK, linewidth=1.1, label=f"Observed ({obs_source})")
 
     ptime = peak.year + (peak.month - 0.5) / 12
     ax.annotate(f"{peak.season} {int(peak.year)}  {peak.value:+.2f}", (ptime, peak.value), xytext=(8, 2),
