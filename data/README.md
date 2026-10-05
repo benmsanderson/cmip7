@@ -30,6 +30,8 @@ uv run scripts/pull_cmip6_esm.py
 | `forcing_co2_emissions.csv` | global CO2 emissions (GtCO2 yr-1 and PgC yr-1) | historical, H, VL |
 | `ukesm_derived.csv` | cumulative emissions, growth, airborne fraction, sinks | members with CO2 |
 | `cmip6_esm_*.csv` | CMIP6 emissions-driven precedent, one member per model | see coverage below |
+| `cmip6_nino34.csv` | monthly Niño3.4 SST (°C), historical + ssp245, 1950–2060 | 41 models, one member each |
+| `cmip6_nino34_oni.csv` | the same as anomalies and 3-month-mean ONI, with `window_complete` | 41 models |
 
 ## Exact sources
 
@@ -169,6 +171,30 @@ sum cannot fall back to cos-latitude weights, so it is skipped. BCC-CSM2-MR
 -1e-7 kg m-2 s-1, about 450 times the real flux and the wrong sign, which
 integrates to -2473 PgC yr-1. Each pull is screened against a plausible range
 per variable and anything outside it is reported and dropped rather than written.
+
+## Niño3.4
+
+`cmip6_nino34.csv` holds the raw box mean (5°S–5°N, 170°W–120°W) so the anomaly
+definition stays a plotting choice. `cmip6_nino34_oni.csv` adds the anomalies
+used in `figures/nino34_context.png`: a centred 30-year running monthly
+climatology removed, then a 3-month running mean — the continuous form of CPC's
+ONI, whose base period shifts every five years. Re-deriving the *observed*
+anomaly this way reproduces CPC's published ONI with correlation 0.997 and a
+mean absolute difference of 0.045 °C, which is what makes model and observed
+values comparable.
+
+Three things to respect when using it:
+
+- **Observations are reprocessed, not taken as published.** The figure's observed
+  line is Niño3.4 put through the model pipeline, so JAS 2026 reads +1.98 °C
+  where CPC publishes +2.16 °C. Both appear on the figure.
+- **`window_complete` marks where the climatology window is whole.** At the ends
+  of a record the centred window is truncated, one-sided, and leaves part of the
+  warming trend in the anomaly — worth 0.1–0.2 °C in the most recent years. The
+  band and the statistics use complete-window rows only, which is why it stops
+  around 2041 rather than 2060. Extending it means pulling model data past 2060.
+- **Weighting falls back where cell areas do not fit**: 34 models use
+  `areacello`, 7 use cos-latitude (adequate for a 10°-tall equatorial box).
 
 ## CMIP6 coverage
 
