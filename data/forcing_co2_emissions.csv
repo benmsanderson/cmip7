@@ -1,0 +1,434 @@
+scenario,year,fossil_GtCO2,cdr_GtCO2,landuse_GtCO2,interpolated,source_dataset,passed_to_esm_GtCO2,passed_to_esm_PgC,total_incl_landuse_GtCO2
+historical,1750,0.009306,0,,False,Global Carbon Budget via OWID owid-co2-data.csv,0.009306,0.00253981,0.009306
+historical,1751,0.009407,0,,False,Global Carbon Budget via OWID owid-co2-data.csv,0.009407,0.00256737,0.009407
+historical,1752,0.009505,0,,False,Global Carbon Budget via OWID owid-co2-data.csv,0.009505,0.00259412,0.009505
+historical,1753,0.00961,0,,False,Global Carbon Budget via OWID owid-co2-data.csv,0.00961,0.00262278,0.00961
+historical,1754,0.009734,0,,False,Global Carbon Budget via OWID owid-co2-data.csv,0.009734,0.00265662,0.009734
+historical,1755,0.009793,0,,False,Global Carbon Budget via OWID owid-co2-data.csv,0.009793,0.00267272,0.009793
+historical,1756,0.00991,0,,False,Global Carbon Budget via OWID owid-co2-data.csv,0.00991,0.00270465,0.00991
+historical,1757,0.010094,0,,False,Global Carbon Budget via OWID owid-co2-data.csv,0.010094,0.00275487,0.010094
+historical,1758,0.010216,0,,False,Global Carbon Budget via OWID owid-co2-data.csv,0.010216,0.00278817,0.010216
+historical,1759,0.010339,0,,False,Global Carbon Budget via OWID owid-co2-data.csv,0.010339,0.00282173,0.010339
+historical,1760,0.010514,0,,False,Global Carbon Budget via OWID owid-co2-data.csv,0.010514,0.0028695,0.010514
+historical,1761,0.010748,0,,False,Global Carbon Budget via OWID owid-co2-data.csv,0.010748,0.00293336,0.010748
+historical,1762,0.010952,0,,False,Global Carbon Budget via OWID owid-co2-data.csv,0.010952,0.00298904,0.010952
+historical,1763,0.011192,0,,False,Global Carbon Budget via OWID owid-co2-data.csv,0.011192,0.00305454,0.011192
+historical,1764,0.011397,0,,False,Global Carbon Budget via OWID owid-co2-data.csv,0.011397,0.00311049,0.011397
+historical,1765,0.011643,0,,False,Global Carbon Budget via OWID owid-co2-data.csv,0.011643,0.00317762,0.011643
+historical,1766,0.011876,0,,False,Global Carbon Budget via OWID owid-co2-data.csv,0.011876,0.00324122,0.011876
+historical,1767,0.012153,0,,False,Global Carbon Budget via OWID owid-co2-data.csv,0.012153,0.00331681,0.012153
+historical,1768,0.012467,0,,False,Global Carbon Budget via OWID owid-co2-data.csv,0.012467,0.00340251,0.012467
+historical,1769,0.01278,0,,False,Global Carbon Budget via OWID owid-co2-data.csv,0.01278,0.00348794,0.01278
+historical,1770,0.013097,0,,False,Global Carbon Budget via OWID owid-co2-data.csv,0.013097,0.00357445,0.013097
+historical,1771,0.013369,0,,False,Global Carbon Budget via OWID owid-co2-data.csv,0.013369,0.00364869,0.013369
+historical,1772,0.013624,0,,False,Global Carbon Budget via OWID owid-co2-data.csv,0.013624,0.00371828,0.013624
+historical,1773,0.013808,0,,False,Global Carbon Budget via OWID owid-co2-data.csv,0.013808,0.0037685,0.013808
+historical,1774,0.014012,0,,False,Global Carbon Budget via OWID owid-co2-data.csv,0.014012,0.00382418,0.014012
+historical,1775,0.014339,0,,False,Global Carbon Budget via OWID owid-co2-data.csv,0.014339,0.00391342,0.014339
+historical,1776,0.014654,0,,False,Global Carbon Budget via OWID owid-co2-data.csv,0.014654,0.00399939,0.014654
+historical,1777,0.01496,0,,False,Global Carbon Budget via OWID owid-co2-data.csv,0.01496,0.0040829,0.01496
+historical,1778,0.015243,0,,False,Global Carbon Budget via OWID owid-co2-data.csv,0.015243,0.00416014,0.015243
+historical,1779,0.015535,0,,False,Global Carbon Budget via OWID owid-co2-data.csv,0.015535,0.00423983,0.015535
+historical,1780,0.015879,0,,False,Global Carbon Budget via OWID owid-co2-data.csv,0.015879,0.00433372,0.015879
+historical,1781,0.016234,0,,False,Global Carbon Budget via OWID owid-co2-data.csv,0.016234,0.00443061,0.016234
+historical,1782,0.016581,0,,False,Global Carbon Budget via OWID owid-co2-data.csv,0.016581,0.00452531,0.016581
+historical,1783,0.017063,0,,False,Global Carbon Budget via OWID owid-co2-data.csv,0.017063,0.00465686,0.017063
+historical,1784,0.017471,0,,False,Global Carbon Budget via OWID owid-co2-data.csv,0.017471,0.00476821,0.017471
+historical,1785,0.017965,0,,False,Global Carbon Budget via OWID owid-co2-data.csv,0.017965,0.00490303,0.017965
+historical,1786,0.018447,0,,False,Global Carbon Budget via OWID owid-co2-data.csv,0.018447,0.00503458,0.018447
+historical,1787,0.018859,0,,False,Global Carbon Budget via OWID owid-co2-data.csv,0.018859,0.00514703,0.018859
+historical,1788,0.019286,0,,False,Global Carbon Budget via OWID owid-co2-data.csv,0.019286,0.00526356,0.019286
+historical,1789,0.019863,0,,False,Global Carbon Budget via OWID owid-co2-data.csv,0.019863,0.00542104,0.019863
+historical,1790,0.020398,0,,False,Global Carbon Budget via OWID owid-co2-data.csv,0.020398,0.00556705,0.020398
+historical,1791,0.020932,0,,False,Global Carbon Budget via OWID owid-co2-data.csv,0.020932,0.00571279,0.020932
+historical,1792,0.021929,0,,False,Global Carbon Budget via OWID owid-co2-data.csv,0.021929,0.00598489,0.021929
+historical,1793,0.022297,0,,False,Global Carbon Budget via OWID owid-co2-data.csv,0.022297,0.00608533,0.022297
+historical,1794,0.02252,0,,False,Global Carbon Budget via OWID owid-co2-data.csv,0.02252,0.00614619,0.02252
+historical,1795,0.022315,0,,False,Global Carbon Budget via OWID owid-co2-data.csv,0.022315,0.00609024,0.022315
+historical,1796,0.022121,0,,False,Global Carbon Budget via OWID owid-co2-data.csv,0.022121,0.0060373,0.022121
+historical,1797,0.02209,0,,False,Global Carbon Budget via OWID owid-co2-data.csv,0.02209,0.00602883,0.02209
+historical,1798,0.023106,0,,False,Global Carbon Budget via OWID owid-co2-data.csv,0.023106,0.00630612,0.023106
+historical,1799,0.027485,0,,False,Global Carbon Budget via OWID owid-co2-data.csv,0.027485,0.00750125,0.027485
+historical,1800,0.032798,0,,False,Global Carbon Budget via OWID owid-co2-data.csv,0.032798,0.00895128,0.032798
+historical,1801,0.031986,0,,False,Global Carbon Budget via OWID owid-co2-data.csv,0.031986,0.00872967,0.031986
+historical,1802,0.04031,0,,False,Global Carbon Budget via OWID owid-co2-data.csv,0.04031,0.0110015,0.04031
+historical,1803,0.029539,0,,False,Global Carbon Budget via OWID owid-co2-data.csv,0.029539,0.00806183,0.029539
+historical,1804,0.031769,0,,False,Global Carbon Budget via OWID owid-co2-data.csv,0.031769,0.00867044,0.031769
+historical,1805,0.031252,0,,False,Global Carbon Budget via OWID owid-co2-data.csv,0.031252,0.00852934,0.031252
+historical,1806,0.032705,0,,False,Global Carbon Budget via OWID owid-co2-data.csv,0.032705,0.0089259,0.032705
+historical,1807,0.036201,0,,False,Global Carbon Budget via OWID owid-co2-data.csv,0.036201,0.00988003,0.036201
+historical,1808,0.035498,0,,False,Global Carbon Budget via OWID owid-co2-data.csv,0.035498,0.00968817,0.035498
+historical,1809,0.036334,0,,False,Global Carbon Budget via OWID owid-co2-data.csv,0.036334,0.00991633,0.036334
+historical,1810,0.039492,0,,False,Global Carbon Budget via OWID owid-co2-data.csv,0.039492,0.0107782,0.039492
+historical,1811,0.040177,0,,False,Global Carbon Budget via OWID owid-co2-data.csv,0.040177,0.0109652,0.040177
+historical,1812,0.040815,0,,False,Global Carbon Budget via OWID owid-co2-data.csv,0.040815,0.0111393,0.040815
+historical,1813,0.041206,0,,False,Global Carbon Budget via OWID owid-co2-data.csv,0.041206,0.011246,0.041206
+historical,1814,0.042227,0,,False,Global Carbon Budget via OWID owid-co2-data.csv,0.042227,0.0115247,0.042227
+historical,1815,0.043587,0,,False,Global Carbon Budget via OWID owid-co2-data.csv,0.043587,0.0118958,0.043587
+historical,1816,0.045497,0,,False,Global Carbon Budget via OWID owid-co2-data.csv,0.045497,0.0124171,0.045497
+historical,1817,0.049276,0,,False,Global Carbon Budget via OWID owid-co2-data.csv,0.049276,0.0134485,0.049276
+historical,1818,0.051392,0,,False,Global Carbon Budget via OWID owid-co2-data.csv,0.051392,0.014026,0.051392
+historical,1819,0.05093,0,,False,Global Carbon Budget via OWID owid-co2-data.csv,0.05093,0.0138999,0.05093
+historical,1820,0.050733,0,,False,Global Carbon Budget via OWID owid-co2-data.csv,0.050733,0.0138461,0.050733
+historical,1821,0.052059,0,,False,Global Carbon Budget via OWID owid-co2-data.csv,0.052059,0.014208,0.052059
+historical,1822,0.054022,0,,False,Global Carbon Budget via OWID owid-co2-data.csv,0.054022,0.0147438,0.054022
+historical,1823,0.056358,0,,False,Global Carbon Budget via OWID owid-co2-data.csv,0.056358,0.0153813,0.056358
+historical,1824,0.057584,0,,False,Global Carbon Budget via OWID owid-co2-data.csv,0.057584,0.0157159,0.057584
+historical,1825,0.060731,0,,False,Global Carbon Budget via OWID owid-co2-data.csv,0.060731,0.0165748,0.060731
+historical,1826,0.061382,0,,False,Global Carbon Budget via OWID owid-co2-data.csv,0.061382,0.0167525,0.061382
+historical,1827,0.065739,0,,False,Global Carbon Budget via OWID owid-co2-data.csv,0.065739,0.0179416,0.065739
+historical,1828,0.066682,0,,False,Global Carbon Budget via OWID owid-co2-data.csv,0.066682,0.0181989,0.066682
+historical,1829,0.066307,0,,False,Global Carbon Budget via OWID owid-co2-data.csv,0.066307,0.0180966,0.066307
+historical,1830,0.088988,0,,False,Global Carbon Budget via OWID owid-co2-data.csv,0.088988,0.0242867,0.088988
+historical,1831,0.083251,0,,False,Global Carbon Budget via OWID owid-co2-data.csv,0.083251,0.022721,0.083251
+historical,1832,0.082092,0,,False,Global Carbon Budget via OWID owid-co2-data.csv,0.082092,0.0224047,0.082092
+historical,1833,0.083249,0,,False,Global Carbon Budget via OWID owid-co2-data.csv,0.083249,0.0227204,0.083249
+historical,1834,0.088763,0,,False,Global Carbon Budget via OWID owid-co2-data.csv,0.088763,0.0242253,0.088763
+historical,1835,0.0974,0,,False,Global Carbon Budget via OWID owid-co2-data.csv,0.0974,0.0265825,0.0974
+historical,1836,0.106894,0,,False,Global Carbon Budget via OWID owid-co2-data.csv,0.106894,0.0291737,0.106894
+historical,1837,0.106199,0,,False,Global Carbon Budget via OWID owid-co2-data.csv,0.106199,0.028984,0.106199
+historical,1838,0.105845,0,,False,Global Carbon Budget via OWID owid-co2-data.csv,0.105845,0.0288874,0.105845
+historical,1839,0.109653,0,,False,Global Carbon Budget via OWID owid-co2-data.csv,0.109653,0.0299267,0.109653
+historical,1840,0.118809,0,,False,Global Carbon Budget via OWID owid-co2-data.csv,0.118809,0.0324255,0.118809
+historical,1841,0.122166,0,,False,Global Carbon Budget via OWID owid-co2-data.csv,0.122166,0.0333417,0.122166
+historical,1842,0.129389,0,,False,Global Carbon Budget via OWID owid-co2-data.csv,0.129389,0.035313,0.129389
+historical,1843,0.132369,0,,False,Global Carbon Budget via OWID owid-co2-data.csv,0.132369,0.0361263,0.132369
+historical,1844,0.141966,0,,False,Global Carbon Budget via OWID owid-co2-data.csv,0.141966,0.0387456,0.141966
+historical,1845,0.155073,0,,False,Global Carbon Budget via OWID owid-co2-data.csv,0.155073,0.0423227,0.155073
+historical,1846,0.157702,0,,False,Global Carbon Budget via OWID owid-co2-data.csv,0.157702,0.0430403,0.157702
+historical,1847,0.170797,0,,False,Global Carbon Budget via OWID owid-co2-data.csv,0.170797,0.0466142,0.170797
+historical,1848,0.173643,0,,False,Global Carbon Budget via OWID owid-co2-data.csv,0.173643,0.0473909,0.173643
+historical,1849,0.185048,0,,False,Global Carbon Budget via OWID owid-co2-data.csv,0.185048,0.0505036,0.185048
+historical,1850,0.196848,0,2.71402,False,Global Carbon Budget via OWID owid-co2-data.csv,0.196848,0.053724,2.91087
+historical,1851,0.198779,0,2.82077,False,Global Carbon Budget via OWID owid-co2-data.csv,0.198779,0.0542511,3.01955
+historical,1852,0.207595,0,2.91735,False,Global Carbon Budget via OWID owid-co2-data.csv,0.207595,0.0566571,3.12494
+historical,1853,0.217237,0,2.93545,False,Global Carbon Budget via OWID owid-co2-data.csv,0.217237,0.0592886,3.15269
+historical,1854,0.255039,0,2.97556,False,Global Carbon Budget via OWID owid-co2-data.csv,0.255039,0.0696056,3.2306
+historical,1855,0.26026,0,3.02782,False,Global Carbon Budget via OWID owid-co2-data.csv,0.26026,0.0710305,3.28808
+historical,1856,0.278246,0,3.04387,False,Global Carbon Budget via OWID owid-co2-data.csv,0.278246,0.0759393,3.32211
+historical,1857,0.281181,0,3.09168,False,Global Carbon Budget via OWID owid-co2-data.csv,0.281181,0.0767403,3.37286
+historical,1858,0.285548,0,3.11242,False,Global Carbon Budget via OWID owid-co2-data.csv,0.285548,0.0779322,3.39797
+historical,1859,0.302572,0,3.15591,False,Global Carbon Budget via OWID owid-co2-data.csv,0.302572,0.0825784,3.45849
+historical,1860,0.332298,0,2.89598,False,Global Carbon Budget via OWID owid-co2-data.csv,0.332298,0.0906913,3.22828
+historical,1861,0.34919,0,2.76661,False,Global Carbon Budget via OWID owid-co2-data.csv,0.34919,0.0953014,3.1158
+historical,1862,0.355991,0,2.69226,False,Global Carbon Budget via OWID owid-co2-data.csv,0.355991,0.0971576,3.04825
+historical,1863,0.379535,0,2.66282,False,Global Carbon Budget via OWID owid-co2-data.csv,0.379535,0.103583,3.04236
+historical,1864,0.409525,0,2.68654,False,Global Carbon Budget via OWID owid-co2-data.csv,0.409525,0.111768,3.09607
+historical,1865,0.434851,0,2.60828,False,Global Carbon Budget via OWID owid-co2-data.csv,0.434851,0.11868,3.04313
+historical,1866,0.449067,0,2.62097,False,Global Carbon Budget via OWID owid-co2-data.csv,0.449067,0.12256,3.07004
+historical,1867,0.480814,0,2.57501,False,Global Carbon Budget via OWID owid-co2-data.csv,0.480814,0.131224,3.05582
+historical,1868,0.494494,0,2.56326,False,Global Carbon Budget via OWID owid-co2-data.csv,0.494494,0.134958,3.05775
+historical,1869,0.524731,0,2.55597,False,Global Carbon Budget via OWID owid-co2-data.csv,0.524731,0.14321,3.0807
+historical,1870,0.536123,0,2.91143,False,Global Carbon Budget via OWID owid-co2-data.csv,0.536123,0.146319,3.44755
+historical,1871,0.569777,0,2.99704,False,Global Carbon Budget via OWID owid-co2-data.csv,0.569777,0.155504,3.56682
+historical,1872,0.630961,0,3.15781,False,Global Carbon Budget via OWID owid-co2-data.csv,0.630961,0.172203,3.78877
+historical,1873,0.670467,0,3.20919,False,Global Carbon Budget via OWID owid-co2-data.csv,0.670467,0.182985,3.87966
+historical,1874,0.628662,0,3.31069,False,Global Carbon Budget via OWID owid-co2-data.csv,0.628662,0.171575,3.93935
+historical,1875,0.681048,0,3.33222,False,Global Carbon Budget via OWID owid-co2-data.csv,0.681048,0.185873,4.01327
+historical,1876,0.690583,0,3.38752,False,Global Carbon Budget via OWID owid-co2-data.csv,0.690583,0.188475,4.0781
+historical,1877,0.704033,0,3.47666,False,Global Carbon Budget via OWID owid-co2-data.csv,0.704033,0.192146,4.18069
+historical,1878,0.70965,0,3.5315,False,Global Carbon Budget via OWID owid-co2-data.csv,0.70965,0.193679,4.24115
+historical,1879,0.759794,0,3.58861,False,Global Carbon Budget via OWID owid-co2-data.csv,0.759794,0.207364,4.3484
+historical,1880,0.858228,0,3.62311,False,Global Carbon Budget via OWID owid-co2-data.csv,0.858228,0.234229,4.48134
+historical,1881,0.888173,0,3.60346,False,Global Carbon Budget via OWID owid-co2-data.csv,0.888173,0.242401,4.49163
+historical,1882,0.938158,0,3.68368,False,Global Carbon Budget via OWID owid-co2-data.csv,0.938158,0.256043,4.62183
+historical,1883,0.997862,0,3.74416,False,Global Carbon Budget via OWID owid-co2-data.csv,0.997862,0.272338,4.74202
+historical,1884,1.00976,0,3.7493,False,Global Carbon Budget via OWID owid-co2-data.csv,1.00976,0.275586,4.75906
+historical,1885,1.01749,0,3.75514,False,Global Carbon Budget via OWID owid-co2-data.csv,1.01749,0.277695,4.77262
+historical,1886,1.03299,0,3.75009,False,Global Carbon Budget via OWID owid-co2-data.csv,1.03299,0.281924,4.78308
+historical,1887,1.08428,0,3.80883,False,Global Carbon Budget via OWID owid-co2-data.csv,1.08428,0.295924,4.89311
+historical,1888,1.20134,0,3.80043,False,Global Carbon Budget via OWID owid-co2-data.csv,1.20134,0.327872,5.00178
+historical,1889,1.2021,0,3.83503,False,Global Carbon Budget via OWID owid-co2-data.csv,1.2021,0.328078,5.03713
+historical,1890,1.30726,0,4.11636,False,Global Carbon Budget via OWID owid-co2-data.csv,1.30726,0.356778,5.42361
+historical,1891,1.3696,0,4.20614,False,Global Carbon Budget via OWID owid-co2-data.csv,1.3696,0.373793,5.57574
+historical,1892,1.38054,0,4.18169,False,Global Carbon Budget via OWID owid-co2-data.csv,1.38054,0.376778,5.56222
+historical,1893,1.36318,0,4.21889,False,Global Carbon Budget via OWID owid-co2-data.csv,1.36318,0.372041,5.58207
+historical,1894,1.41223,0,4.30372,False,Global Carbon Budget via OWID owid-co2-data.csv,1.41223,0.385427,5.71595
+historical,1895,1.49596,0,4.29007,False,Global Carbon Budget via OWID owid-co2-data.csv,1.49596,0.408281,5.78603
+historical,1896,1.54545,0,4.30526,False,Global Carbon Budget via OWID owid-co2-data.csv,1.54545,0.421787,5.85071
+historical,1897,1.6184,0,4.37545,False,Global Carbon Budget via OWID owid-co2-data.csv,1.6184,0.441697,5.99386
+historical,1898,1.70697,0,4.39126,False,Global Carbon Budget via OWID owid-co2-data.csv,1.70697,0.465868,6.09822
+historical,1899,1.86442,0,4.42702,False,Global Carbon Budget via OWID owid-co2-data.csv,1.86442,0.508841,6.29144
+historical,1900,1.96288,0,4.46074,False,Global Carbon Budget via OWID owid-co2-data.csv,1.96288,0.535713,6.42362
+historical,1901,2.02563,0,4.58545,False,Global Carbon Budget via OWID owid-co2-data.csv,2.02563,0.552837,6.61107
+historical,1902,2.07696,0,4.62775,False,Global Carbon Budget via OWID owid-co2-data.csv,2.07696,0.566846,6.70471
+historical,1903,2.26459,0,4.6631,False,Global Carbon Budget via OWID owid-co2-data.csv,2.26459,0.618056,6.92769
+historical,1904,2.29026,0,4.77191,False,Global Carbon Budget via OWID owid-co2-data.csv,2.29026,0.62506,7.06216
+historical,1905,2.44057,0,4.8039,False,Global Carbon Budget via OWID owid-co2-data.csv,2.44057,0.666084,7.24447
+historical,1906,2.54898,0,4.87151,False,Global Carbon Budget via OWID owid-co2-data.csv,2.54898,0.695671,7.42049
+historical,1907,2.90495,0,4.87389,False,Global Carbon Budget via OWID owid-co2-data.csv,2.90495,0.792823,7.77884
+historical,1908,2.7904,0,4.92134,False,Global Carbon Budget via OWID owid-co2-data.csv,2.7904,0.761559,7.71173
+historical,1909,2.90711,0,4.99969,False,Global Carbon Budget via OWID owid-co2-data.csv,2.90711,0.793413,7.9068
+historical,1910,3.05027,0,4.79815,False,Global Carbon Budget via OWID owid-co2-data.csv,3.05027,0.832485,7.84843
+historical,1911,3.09721,0,4.76562,False,Global Carbon Budget via OWID owid-co2-data.csv,3.09721,0.845294,7.86283
+historical,1912,3.25393,0,4.6673,False,Global Carbon Budget via OWID owid-co2-data.csv,3.25393,0.888067,7.92123
+historical,1913,3.52485,0,4.62027,False,Global Carbon Budget via OWID owid-co2-data.csv,3.52485,0.962006,8.14511
+historical,1914,3.19775,0,4.62672,False,Global Carbon Budget via OWID owid-co2-data.csv,3.19775,0.872735,7.82447
+historical,1915,3.14803,0,4.55334,False,Global Carbon Budget via OWID owid-co2-data.csv,3.14803,0.859165,7.70137
+historical,1916,3.40023,0,4.54135,False,Global Carbon Budget via OWID owid-co2-data.csv,3.40023,0.927996,7.94158
+historical,1917,3.5565,0,4.45923,False,Global Carbon Budget via OWID owid-co2-data.csv,3.5565,0.970645,8.01573
+historical,1918,3.50609,0,4.41681,False,Global Carbon Budget via OWID owid-co2-data.csv,3.50609,0.956886,7.92289
+historical,1919,3.04111,0,4.38523,False,Global Carbon Budget via OWID owid-co2-data.csv,3.04111,0.829985,7.42635
+historical,1920,3.54676,0,4.77673,False,Global Carbon Budget via OWID owid-co2-data.csv,3.54676,0.967986,8.32349
+historical,1921,3.11499,0,4.98562,False,Global Carbon Budget via OWID owid-co2-data.csv,3.11499,0.850149,8.10061
+historical,1922,3.26472,0,5.05659,False,Global Carbon Budget via OWID owid-co2-data.csv,3.26472,0.891011,8.32131
+historical,1923,3.703,0,5.16816,False,Global Carbon Budget via OWID owid-co2-data.csv,3.703,1.01063,8.87115
+historical,1924,3.71614,0,5.11391,False,Global Carbon Budget via OWID owid-co2-data.csv,3.71614,1.01422,8.83005
+historical,1925,3.74063,0,5.24885,False,Global Carbon Budget via OWID owid-co2-data.csv,3.74063,1.0209,8.98948
+historical,1926,3.67741,0,5.26623,False,Global Carbon Budget via OWID owid-co2-data.csv,3.67741,1.00364,8.94364
+historical,1927,4.01295,0,5.27123,False,Global Carbon Budget via OWID owid-co2-data.csv,4.01295,1.09522,9.28417
+historical,1928,3.99631,0,5.32667,False,Global Carbon Budget via OWID owid-co2-data.csv,3.99631,1.09068,9.32298
+historical,1929,4.28821,0,5.38245,False,Global Carbon Budget via OWID owid-co2-data.csv,4.28821,1.17034,9.67066
+historical,1930,3.95809,0,5.43806,False,Global Carbon Budget via OWID owid-co2-data.csv,3.95809,1.08025,9.39615
+historical,1931,3.53932,0,5.52431,False,Global Carbon Budget via OWID owid-co2-data.csv,3.53932,0.965956,9.06363
+historical,1932,3.19259,0,5.56534,False,Global Carbon Budget via OWID owid-co2-data.csv,3.19259,0.871326,8.75793
+historical,1933,3.36268,0,5.5209,False,Global Carbon Budget via OWID owid-co2-data.csv,3.36268,0.917748,8.88359
+historical,1934,3.65619,0,5.57443,False,Global Carbon Budget via OWID owid-co2-data.csv,3.65619,0.997852,9.23062
+historical,1935,3.83574,0,5.51152,False,Global Carbon Budget via OWID owid-co2-data.csv,3.83574,1.04686,9.34726
+historical,1936,4.20793,0,5.64484,False,Global Carbon Budget via OWID owid-co2-data.csv,4.20793,1.14843,9.85277
+historical,1937,4.49671,0,5.62594,False,Global Carbon Budget via OWID owid-co2-data.csv,4.49671,1.22725,10.1227
+historical,1938,4.22962,0,5.66585,False,Global Carbon Budget via OWID owid-co2-data.csv,4.22962,1.15435,9.89547
+historical,1939,4.47013,0,5.6356,False,Global Carbon Budget via OWID owid-co2-data.csv,4.47013,1.21999,10.1057
+historical,1940,4.88466,0,5.74341,False,Global Carbon Budget via OWID owid-co2-data.csv,4.88466,1.33313,10.6281
+historical,1941,4.99909,0,5.89115,False,Global Carbon Budget via OWID owid-co2-data.csv,4.99909,1.36436,10.8902
+historical,1942,4.98252,0,5.90531,False,Global Carbon Budget via OWID owid-co2-data.csv,4.98252,1.35984,10.8878
+historical,1943,5.07527,0,5.8943,False,Global Carbon Budget via OWID owid-co2-data.csv,5.07527,1.38515,10.9696
+historical,1944,5.16249,0,5.82606,False,Global Carbon Budget via OWID owid-co2-data.csv,5.16249,1.40895,10.9886
+historical,1945,4.28931,0,5.86339,False,Global Carbon Budget via OWID owid-co2-data.csv,4.28931,1.17065,10.1527
+historical,1946,4.60855,0,5.82762,False,Global Carbon Budget via OWID owid-co2-data.csv,4.60855,1.25777,10.4362
+historical,1947,5.1652,0,5.77824,False,Global Carbon Budget via OWID owid-co2-data.csv,5.1652,1.40969,10.9434
+historical,1948,5.44788,0,5.72476,False,Global Carbon Budget via OWID owid-co2-data.csv,5.44788,1.48684,11.1726
+historical,1949,5.20403,0,5.68332,False,Global Carbon Budget via OWID owid-co2-data.csv,5.20403,1.42029,10.8873
+historical,1950,5.93041,0,6.65403,False,Global Carbon Budget via OWID owid-co2-data.csv,5.93041,1.61853,12.5844
+historical,1951,6.38165,0,7.19734,False,Global Carbon Budget via OWID owid-co2-data.csv,6.38165,1.74169,13.579
+historical,1952,6.4677,0,7.25122,False,Global Carbon Budget via OWID owid-co2-data.csv,6.4677,1.76517,13.7189
+historical,1953,6.65104,0,7.38362,False,Global Carbon Budget via OWID owid-co2-data.csv,6.65104,1.81521,14.0347
+historical,1954,6.78973,0,7.80684,False,Global Carbon Budget via OWID owid-co2-data.csv,6.78973,1.85306,14.5966
+historical,1955,7.4441,0,7.99407,False,Global Carbon Budget via OWID owid-co2-data.csv,7.4441,2.03166,15.4382
+historical,1956,7.92627,0,8.06063,False,Global Carbon Budget via OWID owid-co2-data.csv,7.92627,2.16325,15.9869
+historical,1957,8.18598,0,8.28015,False,Global Carbon Budget via OWID owid-co2-data.csv,8.18598,2.23413,16.4661
+historical,1958,8.41752,0,8.21243,False,Global Carbon Budget via OWID owid-co2-data.csv,8.41752,2.29732,16.6299
+historical,1959,8.85511,0,8.69277,False,Global Carbon Budget via OWID owid-co2-data.csv,8.85511,2.41675,17.5479
+historical,1960,9.38695,0,7.61057,False,Global Carbon Budget via OWID owid-co2-data.csv,9.38695,2.5619,16.9975
+historical,1961,9.41499,0,7.63016,False,Global Carbon Budget via OWID owid-co2-data.csv,9.41499,2.56955,17.0451
+historical,1962,9.74724,0,7.1384,False,Global Carbon Budget via OWID owid-co2-data.csv,9.74724,2.66023,16.8856
+historical,1963,10.2668,0,6.95333,False,Global Carbon Budget via OWID owid-co2-data.csv,10.2668,2.80202,17.2201
+historical,1964,10.8245,0,6.65992,False,Global Carbon Budget via OWID owid-co2-data.csv,10.8245,2.95423,17.4844
+historical,1965,11.3106,0,6.38542,False,Global Carbon Budget via OWID owid-co2-data.csv,11.3106,3.08691,17.696
+historical,1966,11.8626,0,5.91714,False,Global Carbon Budget via OWID owid-co2-data.csv,11.8626,3.23756,17.7798
+historical,1967,12.2374,0,6.25053,False,Global Carbon Budget via OWID owid-co2-data.csv,12.2374,3.33984,18.4879
+historical,1968,12.9053,0,6.32713,False,Global Carbon Budget via OWID owid-co2-data.csv,12.9053,3.52213,19.2324
+historical,1969,13.7618,0,6.94054,False,Global Carbon Budget via OWID owid-co2-data.csv,13.7618,3.75589,20.7023
+historical,1970,14.8991,0,6.68967,False,Global Carbon Budget via OWID owid-co2-data.csv,14.8991,4.06629,21.5888
+historical,1971,15.5039,0,6.1394,False,Global Carbon Budget via OWID owid-co2-data.csv,15.5039,4.23134,21.6433
+historical,1972,16.2246,0,6.43809,False,Global Carbon Budget via OWID owid-co2-data.csv,16.2246,4.42804,22.6627
+historical,1973,17.0773,0,6.25427,False,Global Carbon Budget via OWID owid-co2-data.csv,17.0773,4.66076,23.3316
+historical,1974,16.9979,0,6.313,False,Global Carbon Budget via OWID owid-co2-data.csv,16.9979,4.63909,23.3109
+historical,1975,16.9885,0,6.1235,False,Global Carbon Budget via OWID owid-co2-data.csv,16.9885,4.63652,23.112
+historical,1976,17.8625,0,6.06028,False,Global Carbon Budget via OWID owid-co2-data.csv,17.8625,4.87506,23.9228
+historical,1977,18.358,0,6.62009,False,Global Carbon Budget via OWID owid-co2-data.csv,18.358,5.0103,24.9781
+historical,1978,19.0247,0,6.5639,False,Global Carbon Budget via OWID owid-co2-data.csv,19.0247,5.19226,25.5886
+historical,1979,19.5086,0,5.85583,False,Global Carbon Budget via OWID owid-co2-data.csv,19.5086,5.32431,25.3644
+historical,1980,19.4098,0,6.00131,False,Global Carbon Budget via OWID owid-co2-data.csv,19.4098,5.29735,25.4111
+historical,1981,18.8798,0,5.83658,False,Global Carbon Budget via OWID owid-co2-data.csv,18.8798,5.15269,24.7163
+historical,1982,18.7297,0,5.53155,False,Global Carbon Budget via OWID owid-co2-data.csv,18.7297,5.11175,24.2613
+historical,1983,18.9018,0,5.83985,False,Global Carbon Budget via OWID owid-co2-data.csv,18.9018,5.1587,24.7416
+historical,1984,19.4572,0,6.4248,False,Global Carbon Budget via OWID owid-co2-data.csv,19.4572,5.3103,25.882
+historical,1985,20.1449,0,6.78774,False,Global Carbon Budget via OWID owid-co2-data.csv,20.1449,5.49797,26.9326
+historical,1986,20.438,0,6.94332,False,Global Carbon Budget via OWID owid-co2-data.csv,20.438,5.57798,27.3814
+historical,1987,21.1062,0,6.49794,False,Global Carbon Budget via OWID owid-co2-data.csv,21.1062,5.76033,27.6041
+historical,1988,21.9188,0,6.15668,False,Global Carbon Budget via OWID owid-co2-data.csv,21.9188,5.9821,28.0754
+historical,1989,22.2002,0,5.98082,False,Global Carbon Budget via OWID owid-co2-data.csv,22.2002,6.05891,28.181
+historical,1990,22.7321,0,5.82907,False,Global Carbon Budget via OWID owid-co2-data.csv,22.7321,6.20409,28.5612
+historical,1991,23.2056,0,5.7203,False,Global Carbon Budget via OWID owid-co2-data.csv,23.2056,6.3333,28.9259
+historical,1992,22.5204,0,5.9679,False,Global Carbon Budget via OWID owid-co2-data.csv,22.5204,6.14631,28.4883
+historical,1993,22.7499,0,5.73329,False,Global Carbon Budget via OWID owid-co2-data.csv,22.7499,6.20893,28.4832
+historical,1994,22.9746,0,6.66891,False,Global Carbon Budget via OWID owid-co2-data.csv,22.9746,6.27026,29.6435
+historical,1995,23.5166,0,6.27808,False,Global Carbon Budget via OWID owid-co2-data.csv,23.5166,6.4182,29.7947
+historical,1996,24.2335,0,6.54183,False,Global Carbon Budget via OWID owid-co2-data.csv,24.2335,6.61384,30.7753
+historical,1997,24.3803,0,8.01962,False,Global Carbon Budget via OWID owid-co2-data.csv,24.3803,6.65391,32.3999
+historical,1998,24.2957,0,6.79224,False,Global Carbon Budget via OWID owid-co2-data.csv,24.2957,6.63082,31.088
+historical,1999,24.8378,0,6.56186,False,Global Carbon Budget via OWID owid-co2-data.csv,24.8378,6.77876,31.3996
+historical,2000,25.5115,0,6.14576,False,Global Carbon Budget via OWID owid-co2-data.csv,25.5115,6.96263,31.6572
+historical,2001,25.693,0,5.4607,False,Global Carbon Budget via OWID owid-co2-data.csv,25.693,7.01217,31.1537
+historical,2002,26.2653,0,6.0937,False,Global Carbon Budget via OWID owid-co2-data.csv,26.2653,7.16837,32.359
+historical,2003,27.6527,0,7.32121,False,Global Carbon Budget via OWID owid-co2-data.csv,27.6527,7.54701,34.9739
+historical,2004,28.61,0,6.44386,False,Global Carbon Budget via OWID owid-co2-data.csv,28.61,7.80829,35.0539
+historical,2005,29.599,0,5.93111,False,Global Carbon Budget via OWID owid-co2-data.csv,29.599,8.07819,35.5301
+historical,2006,30.5942,0,6.03374,False,Global Carbon Budget via OWID owid-co2-data.csv,30.5942,8.3498,36.6279
+historical,2007,31.4993,0,5.59321,False,Global Carbon Budget via OWID owid-co2-data.csv,31.4993,8.59682,37.0925
+historical,2008,32.0497,0,5.95102,False,Global Carbon Budget via OWID owid-co2-data.csv,32.0497,8.74704,38.0007
+historical,2009,31.513,0,6.53482,False,Global Carbon Budget via OWID owid-co2-data.csv,31.513,8.60058,38.0478
+historical,2010,33.3177,0,6.51783,False,Global Carbon Budget via OWID owid-co2-data.csv,33.3177,9.09311,39.8355
+historical,2011,34.48,0,6.39256,False,Global Carbon Budget via OWID owid-co2-data.csv,34.48,9.41033,40.8725
+historical,2012,34.9547,0,6.68212,False,Global Carbon Budget via OWID owid-co2-data.csv,34.9547,9.5399,41.6369
+historical,2013,35.2758,0,6.31952,False,Global Carbon Budget via OWID owid-co2-data.csv,35.2758,9.62753,41.5953
+historical,2014,35.4657,0,6.40991,False,Global Carbon Budget via OWID owid-co2-data.csv,35.4657,9.67935,41.8756
+historical,2015,35.4035,0,6.51262,False,Global Carbon Budget via OWID owid-co2-data.csv,35.4035,9.66238,41.9162
+historical,2016,35.3928,0,5.37655,False,Global Carbon Budget via OWID owid-co2-data.csv,35.3928,9.65946,40.7694
+historical,2017,35.9746,0,5.30777,False,Global Carbon Budget via OWID owid-co2-data.csv,35.9746,9.81824,41.2824
+historical,2018,36.734,0,4.88202,False,Global Carbon Budget via OWID owid-co2-data.csv,36.734,10.0255,41.616
+historical,2019,37.0866,0,4.88718,False,Global Carbon Budget via OWID owid-co2-data.csv,37.0866,10.1217,41.9737
+historical,2020,35.1582,0,4.51654,False,Global Carbon Budget via OWID owid-co2-data.csv,35.1582,9.59544,39.6748
+historical,2021,36.8669,0,4.6571,False,Global Carbon Budget via OWID owid-co2-data.csv,36.8669,10.0618,41.524
+historical,2022,37.5278,0,4.78539,False,Global Carbon Budget via OWID owid-co2-data.csv,37.5278,10.2421,42.3132
+historical,2023,38.094,0,4.74555,False,Global Carbon Budget via OWID owid-co2-data.csv,38.094,10.3967,42.8396
+historical,2024,38.5986,0,4.58551,False,Global Carbon Budget via OWID owid-co2-data.csv,38.5986,10.5344,43.1841
+h,2022,37.2834,0,,False,"IIASA-IAMC-h-1-1-0 (CO2_em_anthro, area-summed)",37.2834,10.1755,37.2834
+h,2023,37.7661,0,,False,"IIASA-IAMC-h-1-1-0 (CO2_em_anthro, area-summed)",37.7661,10.3072,37.7661
+h,2024,37.862,-2.11152e-05,,False,"IIASA-IAMC-h-1-1-0 (CO2_em_anthro, area-summed)",37.862,10.3333,37.862
+h,2025,37.9582,-5.63072e-05,,False,"IIASA-IAMC-h-1-1-0 (CO2_em_anthro, area-summed)",37.9582,10.3596,37.9582
+h,2026,38.3591,-0.000195403,,True,"IIASA-IAMC-h-1-1-0 (CO2_em_anthro, area-summed)",38.3589,10.469,38.3589
+h,2027,38.7599,-0.000334499,,True,"IIASA-IAMC-h-1-1-0 (CO2_em_anthro, area-summed)",38.7596,10.5783,38.7596
+h,2028,39.1608,-0.000473595,,True,"IIASA-IAMC-h-1-1-0 (CO2_em_anthro, area-summed)",39.1603,10.6877,39.1603
+h,2029,39.5617,-0.00061269,,True,"IIASA-IAMC-h-1-1-0 (CO2_em_anthro, area-summed)",39.5611,10.7971,39.5611
+h,2030,39.9625,-0.000751786,,False,"IIASA-IAMC-h-1-1-0 (CO2_em_anthro, area-summed)",39.9618,10.9064,39.9618
+h,2031,40.2002,-0.00133476,,True,"IIASA-IAMC-h-1-1-0 (CO2_em_anthro, area-summed)",40.1989,10.9711,40.1989
+h,2032,40.4379,-0.00191774,,True,"IIASA-IAMC-h-1-1-0 (CO2_em_anthro, area-summed)",40.436,11.0358,40.436
+h,2033,40.6756,-0.00250071,,True,"IIASA-IAMC-h-1-1-0 (CO2_em_anthro, area-summed)",40.6731,11.1006,40.6731
+h,2034,40.9133,-0.00308369,,True,"IIASA-IAMC-h-1-1-0 (CO2_em_anthro, area-summed)",40.9102,11.1653,40.9102
+h,2035,41.1509,-0.00366667,,False,"IIASA-IAMC-h-1-1-0 (CO2_em_anthro, area-summed)",41.1473,11.23,41.1473
+h,2036,41.2562,-0.00572047,,True,"IIASA-IAMC-h-1-1-0 (CO2_em_anthro, area-summed)",41.2505,11.2581,41.2505
+h,2037,41.3615,-0.00777428,,True,"IIASA-IAMC-h-1-1-0 (CO2_em_anthro, area-summed)",41.3537,11.2863,41.3537
+h,2038,41.4667,-0.00982809,,True,"IIASA-IAMC-h-1-1-0 (CO2_em_anthro, area-summed)",41.4569,11.3145,41.4569
+h,2039,41.572,-0.0118819,,True,"IIASA-IAMC-h-1-1-0 (CO2_em_anthro, area-summed)",41.5601,11.3426,41.5601
+h,2040,41.6772,-0.0139357,,False,"IIASA-IAMC-h-1-1-0 (CO2_em_anthro, area-summed)",41.6633,11.3708,41.6633
+h,2041,41.7192,-0.0164831,,True,"IIASA-IAMC-h-1-1-0 (CO2_em_anthro, area-summed)",41.7027,11.3816,41.7027
+h,2042,41.7611,-0.0190305,,True,"IIASA-IAMC-h-1-1-0 (CO2_em_anthro, area-summed)",41.7421,11.3923,41.7421
+h,2043,41.803,-0.021578,,True,"IIASA-IAMC-h-1-1-0 (CO2_em_anthro, area-summed)",41.7815,11.4031,41.7815
+h,2044,41.845,-0.0241254,,True,"IIASA-IAMC-h-1-1-0 (CO2_em_anthro, area-summed)",41.8208,11.4138,41.8208
+h,2045,41.8869,-0.0266728,,False,"IIASA-IAMC-h-1-1-0 (CO2_em_anthro, area-summed)",41.8602,11.4246,41.8602
+h,2046,41.8423,-0.0293121,,True,"IIASA-IAMC-h-1-1-0 (CO2_em_anthro, area-summed)",41.8129,11.4116,41.8129
+h,2047,41.7976,-0.0319514,,True,"IIASA-IAMC-h-1-1-0 (CO2_em_anthro, area-summed)",41.7657,11.3987,41.7657
+h,2048,41.753,-0.0345907,,True,"IIASA-IAMC-h-1-1-0 (CO2_em_anthro, area-summed)",41.7184,11.3858,41.7184
+h,2049,41.7083,-0.03723,,True,"IIASA-IAMC-h-1-1-0 (CO2_em_anthro, area-summed)",41.6711,11.3729,41.6711
+h,2050,41.6637,-0.0398693,,False,"IIASA-IAMC-h-1-1-0 (CO2_em_anthro, area-summed)",41.6238,11.36,41.6238
+h,2051,42.0698,-0.0419671,,True,"IIASA-IAMC-h-1-1-0 (CO2_em_anthro, area-summed)",42.0279,11.4703,42.0279
+h,2052,42.4759,-0.0440649,,True,"IIASA-IAMC-h-1-1-0 (CO2_em_anthro, area-summed)",42.4319,11.5806,42.4319
+h,2053,42.8821,-0.0461627,,True,"IIASA-IAMC-h-1-1-0 (CO2_em_anthro, area-summed)",42.8359,11.6908,42.8359
+h,2054,43.2882,-0.0482605,,True,"IIASA-IAMC-h-1-1-0 (CO2_em_anthro, area-summed)",43.2399,11.8011,43.2399
+h,2055,43.6943,-0.0503583,,False,"IIASA-IAMC-h-1-1-0 (CO2_em_anthro, area-summed)",43.6439,11.9114,43.6439
+h,2056,44.0013,-0.0402866,,True,"IIASA-IAMC-h-1-1-0 (CO2_em_anthro, area-summed)",43.961,11.9979,43.961
+h,2057,44.3083,-0.030215,,True,"IIASA-IAMC-h-1-1-0 (CO2_em_anthro, area-summed)",44.2781,12.0844,44.2781
+h,2058,44.6153,-0.0201433,,True,"IIASA-IAMC-h-1-1-0 (CO2_em_anthro, area-summed)",44.5952,12.171,44.5952
+h,2059,44.9224,-0.0100717,,True,"IIASA-IAMC-h-1-1-0 (CO2_em_anthro, area-summed)",44.9123,12.2575,44.9123
+h,2060,45.2294,-1.21935e-09,,False,"IIASA-IAMC-h-1-1-0 (CO2_em_anthro, area-summed)",45.2294,12.3441,45.2294
+h,2061,45.3741,-1.16453e-09,,True,"IIASA-IAMC-h-1-1-0 (CO2_em_anthro, area-summed)",45.3741,12.3836,45.3741
+h,2062,45.5189,-1.10971e-09,,True,"IIASA-IAMC-h-1-1-0 (CO2_em_anthro, area-summed)",45.5189,12.4231,45.5189
+h,2063,45.6637,-1.05489e-09,,True,"IIASA-IAMC-h-1-1-0 (CO2_em_anthro, area-summed)",45.6637,12.4626,45.6637
+h,2064,45.8084,-1.00007e-09,,True,"IIASA-IAMC-h-1-1-0 (CO2_em_anthro, area-summed)",45.8084,12.5021,45.8084
+h,2065,45.9532,-9.45256e-10,,False,"IIASA-IAMC-h-1-1-0 (CO2_em_anthro, area-summed)",45.9532,12.5416,45.9532
+h,2066,46.0892,-8.80867e-10,,True,"IIASA-IAMC-h-1-1-0 (CO2_em_anthro, area-summed)",46.0892,12.5787,46.0892
+h,2067,46.2253,-8.16479e-10,,True,"IIASA-IAMC-h-1-1-0 (CO2_em_anthro, area-summed)",46.2253,12.6159,46.2253
+h,2068,46.3614,-7.5209e-10,,True,"IIASA-IAMC-h-1-1-0 (CO2_em_anthro, area-summed)",46.3614,12.653,46.3614
+h,2069,46.4974,-6.87701e-10,,True,"IIASA-IAMC-h-1-1-0 (CO2_em_anthro, area-summed)",46.4974,12.6901,46.4974
+h,2070,46.6335,-6.23313e-10,,False,"IIASA-IAMC-h-1-1-0 (CO2_em_anthro, area-summed)",46.6335,12.7273,46.6335
+h,2071,46.8032,-5.63004e-10,,True,"IIASA-IAMC-h-1-1-0 (CO2_em_anthro, area-summed)",46.8032,12.7736,46.8032
+h,2072,46.973,-5.02695e-10,,True,"IIASA-IAMC-h-1-1-0 (CO2_em_anthro, area-summed)",46.973,12.8199,46.973
+h,2073,47.1428,-4.42386e-10,,True,"IIASA-IAMC-h-1-1-0 (CO2_em_anthro, area-summed)",47.1428,12.8663,47.1428
+h,2074,47.3125,-3.82078e-10,,True,"IIASA-IAMC-h-1-1-0 (CO2_em_anthro, area-summed)",47.3125,12.9126,47.3125
+h,2075,47.4823,-3.21769e-10,,False,"IIASA-IAMC-h-1-1-0 (CO2_em_anthro, area-summed)",47.4823,12.9589,47.4823
+h,2076,47.6453,-2.8431e-10,,True,"IIASA-IAMC-h-1-1-0 (CO2_em_anthro, area-summed)",47.6453,13.0034,47.6453
+h,2077,47.8082,-2.46851e-10,,True,"IIASA-IAMC-h-1-1-0 (CO2_em_anthro, area-summed)",47.8082,13.0479,47.8082
+h,2078,47.9712,-2.09393e-10,,True,"IIASA-IAMC-h-1-1-0 (CO2_em_anthro, area-summed)",47.9712,13.0924,47.9712
+h,2079,48.1342,-1.71934e-10,,True,"IIASA-IAMC-h-1-1-0 (CO2_em_anthro, area-summed)",48.1342,13.1369,48.1342
+h,2080,48.2972,-1.34475e-10,,False,"IIASA-IAMC-h-1-1-0 (CO2_em_anthro, area-summed)",48.2972,13.1813,48.2972
+h,2081,48.4493,-1.2076e-10,,True,"IIASA-IAMC-h-1-1-0 (CO2_em_anthro, area-summed)",48.4493,13.2229,48.4493
+h,2082,48.6014,-1.07045e-10,,True,"IIASA-IAMC-h-1-1-0 (CO2_em_anthro, area-summed)",48.6014,13.2644,48.6014
+h,2083,48.7535,-9.33294e-11,,True,"IIASA-IAMC-h-1-1-0 (CO2_em_anthro, area-summed)",48.7535,13.3059,48.7535
+h,2084,48.9056,-7.96141e-11,,True,"IIASA-IAMC-h-1-1-0 (CO2_em_anthro, area-summed)",48.9056,13.3474,48.9056
+h,2085,49.0577,-6.58988e-11,,False,"IIASA-IAMC-h-1-1-0 (CO2_em_anthro, area-summed)",49.0577,13.3889,49.0577
+h,2086,49.2293,-6.21205e-11,,True,"IIASA-IAMC-h-1-1-0 (CO2_em_anthro, area-summed)",49.2293,13.4357,49.2293
+h,2087,49.4008,-5.83421e-11,,True,"IIASA-IAMC-h-1-1-0 (CO2_em_anthro, area-summed)",49.4008,13.4825,49.4008
+h,2088,49.5724,-5.45637e-11,,True,"IIASA-IAMC-h-1-1-0 (CO2_em_anthro, area-summed)",49.5724,13.5294,49.5724
+h,2089,49.7439,-5.07854e-11,,True,"IIASA-IAMC-h-1-1-0 (CO2_em_anthro, area-summed)",49.7439,13.5762,49.7439
+h,2090,49.9155,-4.7007e-11,,False,"IIASA-IAMC-h-1-1-0 (CO2_em_anthro, area-summed)",49.9155,13.623,49.9155
+h,2091,50.0949,-4.62931e-11,,True,"IIASA-IAMC-h-1-1-0 (CO2_em_anthro, area-summed)",50.0949,13.672,50.0949
+h,2092,50.2742,-4.55792e-11,,True,"IIASA-IAMC-h-1-1-0 (CO2_em_anthro, area-summed)",50.2742,13.7209,50.2742
+h,2093,50.4536,-4.48653e-11,,True,"IIASA-IAMC-h-1-1-0 (CO2_em_anthro, area-summed)",50.4536,13.7699,50.4536
+h,2094,50.633,-4.41514e-11,,True,"IIASA-IAMC-h-1-1-0 (CO2_em_anthro, area-summed)",50.633,13.8188,50.633
+h,2095,50.8123,-4.34375e-11,,False,"IIASA-IAMC-h-1-1-0 (CO2_em_anthro, area-summed)",50.8123,13.8678,50.8123
+h,2096,50.984,-4.39463e-11,,True,"IIASA-IAMC-h-1-1-0 (CO2_em_anthro, area-summed)",50.984,13.9146,50.984
+h,2097,51.1557,-4.44551e-11,,True,"IIASA-IAMC-h-1-1-0 (CO2_em_anthro, area-summed)",51.1557,13.9615,51.1557
+h,2098,51.3274,-4.49639e-11,,True,"IIASA-IAMC-h-1-1-0 (CO2_em_anthro, area-summed)",51.3274,14.0084,51.3274
+h,2099,51.4991,-4.54727e-11,,True,"IIASA-IAMC-h-1-1-0 (CO2_em_anthro, area-summed)",51.4991,14.0552,51.4991
+h,2100,51.6708,-4.59816e-11,,False,"IIASA-IAMC-h-1-1-0 (CO2_em_anthro, area-summed)",51.6708,14.1021,51.6708
+vl,2022,37.2834,0,,False,"IIASA-IAMC-vl-1-1-0 (CO2_em_anthro, area-summed)",37.2834,10.1755,37.2834
+vl,2023,37.7661,0,,False,"IIASA-IAMC-vl-1-1-0 (CO2_em_anthro, area-summed)",37.7661,10.3072,37.7661
+vl,2024,38.0252,-0.00197614,,False,"IIASA-IAMC-vl-1-1-0 (CO2_em_anthro, area-summed)",38.0232,10.3774,38.0232
+vl,2025,38.2882,-0.00431966,,False,"IIASA-IAMC-vl-1-1-0 (CO2_em_anthro, area-summed)",38.2839,10.4485,38.2839
+vl,2026,37.5165,-0.0200795,,True,"IIASA-IAMC-vl-1-1-0 (CO2_em_anthro, area-summed)",37.4964,10.2336,37.4964
+vl,2027,36.7448,-0.0358393,,True,"IIASA-IAMC-vl-1-1-0 (CO2_em_anthro, area-summed)",36.709,10.0187,36.709
+vl,2028,35.9731,-0.0515991,,True,"IIASA-IAMC-vl-1-1-0 (CO2_em_anthro, area-summed)",35.9215,9.80376,35.9215
+vl,2029,35.2014,-0.0673589,,True,"IIASA-IAMC-vl-1-1-0 (CO2_em_anthro, area-summed)",35.1341,9.58885,35.1341
+vl,2030,34.4298,-0.0831188,,False,"IIASA-IAMC-vl-1-1-0 (CO2_em_anthro, area-summed)",34.3466,9.37393,34.3466
+vl,2031,31.9258,-0.137479,,True,"IIASA-IAMC-vl-1-1-0 (CO2_em_anthro, area-summed)",31.7884,8.67572,31.7884
+vl,2032,29.4219,-0.19184,,True,"IIASA-IAMC-vl-1-1-0 (CO2_em_anthro, area-summed)",29.2301,7.97751,29.2301
+vl,2033,26.918,-0.246201,,True,"IIASA-IAMC-vl-1-1-0 (CO2_em_anthro, area-summed)",26.6718,7.2793,26.6718
+vl,2034,24.4141,-0.300562,,True,"IIASA-IAMC-vl-1-1-0 (CO2_em_anthro, area-summed)",24.1135,6.58109,24.1135
+vl,2035,21.9101,-0.354922,,False,"IIASA-IAMC-vl-1-1-0 (CO2_em_anthro, area-summed)",21.5552,5.88288,21.5552
+vl,2036,19.9871,-0.501762,,True,"IIASA-IAMC-vl-1-1-0 (CO2_em_anthro, area-summed)",19.4853,5.31795,19.4853
+vl,2037,18.064,-0.648602,,True,"IIASA-IAMC-vl-1-1-0 (CO2_em_anthro, area-summed)",17.4154,4.75303,17.4154
+vl,2038,16.1409,-0.795442,,True,"IIASA-IAMC-vl-1-1-0 (CO2_em_anthro, area-summed)",15.3454,4.1881,15.3454
+vl,2039,14.2178,-0.942282,,True,"IIASA-IAMC-vl-1-1-0 (CO2_em_anthro, area-summed)",13.2755,3.62318,13.2755
+vl,2040,12.2947,-1.08912,,False,"IIASA-IAMC-vl-1-1-0 (CO2_em_anthro, area-summed)",11.2056,3.05825,11.2056
+vl,2041,11.1277,-1.26597,,True,"IIASA-IAMC-vl-1-1-0 (CO2_em_anthro, area-summed)",9.86171,2.69147,9.86171
+vl,2042,9.96063,-1.44281,,True,"IIASA-IAMC-vl-1-1-0 (CO2_em_anthro, area-summed)",8.51782,2.3247,8.51782
+vl,2043,8.79358,-1.61966,,True,"IIASA-IAMC-vl-1-1-0 (CO2_em_anthro, area-summed)",7.17392,1.95792,7.17392
+vl,2044,7.62654,-1.7965,,True,"IIASA-IAMC-vl-1-1-0 (CO2_em_anthro, area-summed)",5.83003,1.59114,5.83003
+vl,2045,6.45949,-1.97335,,False,"IIASA-IAMC-vl-1-1-0 (CO2_em_anthro, area-summed)",4.48614,1.22436,4.48614
+vl,2046,5.92644,-2.10316,,True,"IIASA-IAMC-vl-1-1-0 (CO2_em_anthro, area-summed)",3.82328,1.04345,3.82328
+vl,2047,5.39339,-2.23297,,True,"IIASA-IAMC-vl-1-1-0 (CO2_em_anthro, area-summed)",3.16042,0.862546,3.16042
+vl,2048,4.86034,-2.36278,,True,"IIASA-IAMC-vl-1-1-0 (CO2_em_anthro, area-summed)",2.49756,0.681638,2.49756
+vl,2049,4.32729,-2.49259,,True,"IIASA-IAMC-vl-1-1-0 (CO2_em_anthro, area-summed)",1.8347,0.500729,1.8347
+vl,2050,3.79424,-2.6224,,False,"IIASA-IAMC-vl-1-1-0 (CO2_em_anthro, area-summed)",1.17184,0.319821,1.17184
+vl,2051,3.60749,-2.62714,,True,"IIASA-IAMC-vl-1-1-0 (CO2_em_anthro, area-summed)",0.98035,0.267558,0.98035
+vl,2052,3.42074,-2.63188,,True,"IIASA-IAMC-vl-1-1-0 (CO2_em_anthro, area-summed)",0.788858,0.215296,0.788858
+vl,2053,3.23398,-2.63662,,True,"IIASA-IAMC-vl-1-1-0 (CO2_em_anthro, area-summed)",0.597367,0.163034,0.597367
+vl,2054,3.04723,-2.64136,,True,"IIASA-IAMC-vl-1-1-0 (CO2_em_anthro, area-summed)",0.405876,0.110772,0.405876
+vl,2055,2.86048,-2.64609,,False,"IIASA-IAMC-vl-1-1-0 (CO2_em_anthro, area-summed)",0.214384,0.0585101,0.214384
+vl,2056,2.72061,-2.64418,,True,"IIASA-IAMC-vl-1-1-0 (CO2_em_anthro, area-summed)",0.0764317,0.0208599,0.0764317
+vl,2057,2.58074,-2.64226,,True,"IIASA-IAMC-vl-1-1-0 (CO2_em_anthro, area-summed)",-0.0615208,-0.0167903,-0.0615208
+vl,2058,2.44086,-2.64034,,True,"IIASA-IAMC-vl-1-1-0 (CO2_em_anthro, area-summed)",-0.199473,-0.0544406,-0.199473
+vl,2059,2.30099,-2.63842,,True,"IIASA-IAMC-vl-1-1-0 (CO2_em_anthro, area-summed)",-0.337426,-0.0920908,-0.337426
+vl,2060,2.16112,-2.6365,,False,"IIASA-IAMC-vl-1-1-0 (CO2_em_anthro, area-summed)",-0.475378,-0.129741,-0.475378
+vl,2061,2.08716,-2.59535,,True,"IIASA-IAMC-vl-1-1-0 (CO2_em_anthro, area-summed)",-0.508194,-0.138697,-0.508194
+vl,2062,2.0132,-2.55421,,True,"IIASA-IAMC-vl-1-1-0 (CO2_em_anthro, area-summed)",-0.54101,-0.147653,-0.54101
+vl,2063,1.93924,-2.51307,,True,"IIASA-IAMC-vl-1-1-0 (CO2_em_anthro, area-summed)",-0.573826,-0.15661,-0.573826
+vl,2064,1.86528,-2.47192,,True,"IIASA-IAMC-vl-1-1-0 (CO2_em_anthro, area-summed)",-0.606642,-0.165566,-0.606642
+vl,2065,1.79132,-2.43078,,False,"IIASA-IAMC-vl-1-1-0 (CO2_em_anthro, area-summed)",-0.639458,-0.174522,-0.639458
+vl,2066,1.71736,-2.38963,,True,"IIASA-IAMC-vl-1-1-0 (CO2_em_anthro, area-summed)",-0.672274,-0.183478,-0.672274
+vl,2067,1.6434,-2.34849,,True,"IIASA-IAMC-vl-1-1-0 (CO2_em_anthro, area-summed)",-0.70509,-0.192434,-0.70509
+vl,2068,1.56944,-2.30735,,True,"IIASA-IAMC-vl-1-1-0 (CO2_em_anthro, area-summed)",-0.737906,-0.20139,-0.737906
+vl,2069,1.49548,-2.2662,,True,"IIASA-IAMC-vl-1-1-0 (CO2_em_anthro, area-summed)",-0.770722,-0.210347,-0.770722
+vl,2070,1.42152,-2.22506,,False,"IIASA-IAMC-vl-1-1-0 (CO2_em_anthro, area-summed)",-0.803538,-0.219303,-0.803538
+vl,2071,1.3751,-2.20363,,True,"IIASA-IAMC-vl-1-1-0 (CO2_em_anthro, area-summed)",-0.828523,-0.226122,-0.828523
+vl,2072,1.32869,-2.1822,,True,"IIASA-IAMC-vl-1-1-0 (CO2_em_anthro, area-summed)",-0.853508,-0.232941,-0.853508
+vl,2073,1.28227,-2.16077,,True,"IIASA-IAMC-vl-1-1-0 (CO2_em_anthro, area-summed)",-0.878493,-0.239759,-0.878493
+vl,2074,1.23586,-2.13934,,True,"IIASA-IAMC-vl-1-1-0 (CO2_em_anthro, area-summed)",-0.903477,-0.246578,-0.903477
+vl,2075,1.18944,-2.11791,,False,"IIASA-IAMC-vl-1-1-0 (CO2_em_anthro, area-summed)",-0.928462,-0.253397,-0.928462
+vl,2076,1.14303,-2.09648,,True,"IIASA-IAMC-vl-1-1-0 (CO2_em_anthro, area-summed)",-0.953447,-0.260216,-0.953447
+vl,2077,1.09661,-2.07505,,True,"IIASA-IAMC-vl-1-1-0 (CO2_em_anthro, area-summed)",-0.978432,-0.267035,-0.978432
+vl,2078,1.0502,-2.05362,,True,"IIASA-IAMC-vl-1-1-0 (CO2_em_anthro, area-summed)",-1.00342,-0.273854,-1.00342
+vl,2079,1.00378,-2.03219,,True,"IIASA-IAMC-vl-1-1-0 (CO2_em_anthro, area-summed)",-1.0284,-0.280673,-1.0284
+vl,2080,0.957369,-2.01076,,False,"IIASA-IAMC-vl-1-1-0 (CO2_em_anthro, area-summed)",-1.05339,-0.287492,-1.05339
+vl,2081,0.952755,-1.99887,,True,"IIASA-IAMC-vl-1-1-0 (CO2_em_anthro, area-summed)",-1.04612,-0.285507,-1.04612
+vl,2082,0.948141,-1.98699,,True,"IIASA-IAMC-vl-1-1-0 (CO2_em_anthro, area-summed)",-1.03884,-0.283523,-1.03884
+vl,2083,0.943527,-1.9751,,True,"IIASA-IAMC-vl-1-1-0 (CO2_em_anthro, area-summed)",-1.03157,-0.281539,-1.03157
+vl,2084,0.938913,-1.96322,,True,"IIASA-IAMC-vl-1-1-0 (CO2_em_anthro, area-summed)",-1.0243,-0.279554,-1.0243
+vl,2085,0.934298,-1.95133,,False,"IIASA-IAMC-vl-1-1-0 (CO2_em_anthro, area-summed)",-1.01703,-0.27757,-1.01703
+vl,2086,0.929684,-1.93945,,True,"IIASA-IAMC-vl-1-1-0 (CO2_em_anthro, area-summed)",-1.00976,-0.275585,-1.00976
+vl,2087,0.92507,-1.92756,,True,"IIASA-IAMC-vl-1-1-0 (CO2_em_anthro, area-summed)",-1.00249,-0.273601,-1.00249
+vl,2088,0.920456,-1.91568,,True,"IIASA-IAMC-vl-1-1-0 (CO2_em_anthro, area-summed)",-0.995219,-0.271617,-0.995219
+vl,2089,0.915842,-1.90379,,True,"IIASA-IAMC-vl-1-1-0 (CO2_em_anthro, area-summed)",-0.987949,-0.269632,-0.987949
+vl,2090,0.911228,-1.89191,,False,"IIASA-IAMC-vl-1-1-0 (CO2_em_anthro, area-summed)",-0.980678,-0.267648,-0.980678
+vl,2091,0.905422,-1.89431,,True,"IIASA-IAMC-vl-1-1-0 (CO2_em_anthro, area-summed)",-0.988893,-0.26989,-0.988893
+vl,2092,0.899616,-1.89672,,True,"IIASA-IAMC-vl-1-1-0 (CO2_em_anthro, area-summed)",-0.997108,-0.272132,-0.997108
+vl,2093,0.893811,-1.89913,,True,"IIASA-IAMC-vl-1-1-0 (CO2_em_anthro, area-summed)",-1.00532,-0.274374,-1.00532
+vl,2094,0.888005,-1.90154,,True,"IIASA-IAMC-vl-1-1-0 (CO2_em_anthro, area-summed)",-1.01354,-0.276616,-1.01354
+vl,2095,0.882199,-1.90395,,False,"IIASA-IAMC-vl-1-1-0 (CO2_em_anthro, area-summed)",-1.02175,-0.278858,-1.02175
+vl,2096,0.876394,-1.90636,,True,"IIASA-IAMC-vl-1-1-0 (CO2_em_anthro, area-summed)",-1.02997,-0.2811,-1.02997
+vl,2097,0.870588,-1.90877,,True,"IIASA-IAMC-vl-1-1-0 (CO2_em_anthro, area-summed)",-1.03818,-0.283342,-1.03818
+vl,2098,0.864782,-1.91118,,True,"IIASA-IAMC-vl-1-1-0 (CO2_em_anthro, area-summed)",-1.0464,-0.285584,-1.0464
+vl,2099,0.858977,-1.91359,,True,"IIASA-IAMC-vl-1-1-0 (CO2_em_anthro, area-summed)",-1.05461,-0.287826,-1.05461
+vl,2100,0.853171,-1.916,,False,"IIASA-IAMC-vl-1-1-0 (CO2_em_anthro, area-summed)",-1.06283,-0.290068,-1.06283

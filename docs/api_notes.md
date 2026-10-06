@@ -56,8 +56,27 @@ global-mean series, so what's missing is ingestion, not processing. Only
 UKESM1-3-LL has scenario data (`esm-scen7-vl` and `esm-scen7-h`, 2 members each).
 Run `uv run scripts/inventory.py` for the current table.
 
+## CMIP6
+
+The same endpoints serve CMIP6 with `mip_era=CMIP6`, and the holdings are much
+larger: 71 models with global-mean `tas`, about 40 models each for ssp126,
+ssp245, ssp370 and ssp585, and 29 models with historical plus all four. Some
+SSP runs extend to 2300.
+
+**No emissions-driven SSPs.** The REF holds `esm-hist` (13 models) and
+`esm-piControl`, but no `esm-ssp585` — 0 series and 0 ingested `tas` datasets.
+CMIP6's only emissions-driven SSP is therefore unavailable, so an
+emissions-driven CMIP6-vs-CMIP7 scenario comparison is not possible through
+this API. The historical period can still be compared like for like
+(`esm-hist` on both sides).
+
+**The member dimension is named differently.** CMIP6 series carry `member_id`
+and `table_id`; CMIP7 uses `variant_label` and no `table_id`. Code that keys on
+`variant_label` silently returns nothing for CMIP6, so `series_to_frame` maps
+`member_id` onto `variant_label`.
+
 ## Possible next steps
 
 - Use `/executions/{id}/archive` to pull the underlying netCDF for diagnostics that don't expose series.
 - Use scalar values (ECS, TCR, TCRE, ZEC) as they appear for CMIP7 models.
-- Pull CMIP6 series (`mip_era=CMIP6`) from the same endpoint for CMIP6-to-CMIP7 comparisons.
+- Compare more CMIP6/CMIP7 model pairs as CMIP7 scenario output is ingested.
