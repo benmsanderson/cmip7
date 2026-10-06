@@ -31,6 +31,7 @@ the spring-to-summer change, which is what "rapid onset" actually means.
 """
 
 import argparse
+import textwrap
 from pathlib import Path
 
 import matplotlib
@@ -208,16 +209,35 @@ def main() -> None:
     peak_onset = (float(obs_onset_all.xs(int(peak.year), level="year").iloc[0])
                   if len(obs_onset_all) and int(peak.year) in set(obs_onset_years) else float("nan"))
 
-    fig, (ax, ax2, ax3) = plt.subplots(
-        1, 3, figsize=(16, 4.6), gridspec_kw={"width_ratios": [2.3, 1, 1]}
-    )
+    # Time series across the top, the two distributions beneath it: three panels
+    # in a row leaves each one too squat to read, and collides the titles.
+    fig = plt.figure(figsize=(11.5, 8.2))
+    grid = fig.add_gridspec(2, 2, height_ratios=[1.25, 1], hspace=0.42, wspace=0.26,
+                            left=0.08, right=0.98, top=0.90, bottom=0.17)
+    ax = fig.add_subplot(grid[0, :])
+    ax2 = fig.add_subplot(grid[1, 0])
+    ax3 = fig.add_subplot(grid[1, 1])
 
     _style(ax)
-    ax.fill_between(spread.time, spread.p05, spread.p95, color=BAND, alpha=0.55, linewidth=0,
-                    label=f"CMIP6 ssp245, 5–95% ({int(spread.n.median())} models)")
-    ax.fill_between(spread.time, spread.p25, spread.p75, color=BAND_DARK, alpha=0.28, linewidth=0,
-                    label="CMIP6 ssp245, 25–75%")
-    ax.plot(spread.time, spread.p50, color=BAND_DARK, linewidth=1.2, label="CMIP6 median")
+    # The band is drawn in two parts. Only the years with observations support a
+    # comparison; beyond them the models are unaccompanied, so that stretch is
+    # faded rather than removed - it is context for the scenario, not evidence.
+    obs_end = int(obs.dropna(subset=["value"]).year.max())
+    overlap, beyond = spread[spread.time <= obs_end], spread[spread.time >= obs_end]
+    for part, strong, tag in ((overlap, True, f"CMIP6 ssp245, 5–95% ({int(spread.n.median())} models)"),
+                              (beyond, False, "beyond the observed record")):
+        if part.empty:
+            continue
+        ax.fill_between(part.time, part.p05, part.p95, color=BAND, linewidth=0,
+                        alpha=0.55 if strong else 0.22, label=tag)
+        ax.fill_between(part.time, part.p25, part.p75, color=BAND_DARK, linewidth=0,
+                        alpha=0.28 if strong else 0.11,
+                        label="CMIP6 ssp245, 25–75%" if strong else None)
+        ax.plot(part.time, part.p50, color=BAND_DARK, linewidth=1.2, alpha=1.0 if strong else 0.45,
+                label="CMIP6 median" if strong else None)
+    ax.axvline(obs_end, color=MUTED, linewidth=0.8, linestyle=(0, (2, 2)))
+    ax.annotate("observations end", (obs_end, ax.get_ylim()[0]), xytext=(4, 6),
+                textcoords="offset points", fontsize=7.5, color=MUTED, rotation=90, va="bottom")
     for level in (-ENSO_THRESHOLD, ENSO_THRESHOLD):
         ax.axhline(level, color=MUTED, linewidth=0.6, linestyle=(0, (4, 3)))
     ax.axhline(0, color=MUTED, linewidth=0.8)
@@ -232,8 +252,12 @@ def main() -> None:
                   fontsize=9, color=INK)
     title = ("Observed ENSO against the CMIP6 range, mean-state warming removed"
              if args.index == "roni" else "Observed Niño3.4 against the CMIP6 range, same baseline")
-    ax.set_title(title, fontsize=11, color=INK, loc="left")
-    ax.legend(frameon=False, fontsize=8, loc="upper left", labelcolor=INK, ncol=2)
+    ax.set_title(title, fontsize=11.5, color=INK, loc="left", pad=16)
+    ax.text(0, 1.02, f"models and observations compared over {lo}–{obs_end}; beyond that the models run alone",
+            transform=ax.transAxes, fontsize=8, color=MUTED, va="bottom")
+    # Inside the axes, over the faded model-only stretch, which is the one place
+    # with room; a legend above the axes collides with the title.
+    ax.legend(frameon=False, fontsize=7.5, loc="upper right", labelcolor=INK)
 
     season_label = args.season if season_month else "all seasons"
 
@@ -245,9 +269,14 @@ def main() -> None:
                   label=f"Observed ({len(obs_values)})")
         axis.axvline(marker, color=INK, linewidth=1.4)
         pct = (model_values < marker).mean() * 100
+        # Put the label on whichever side of the line has room; near the right
+        # edge a left-aligned label runs off the panel.
+        x0, x1 = axis.get_xlim()
+        on_right = marker > x0 + 0.62 * (x1 - x0)
         axis.annotate(f"{int(peak.year)}  {marker:+.2f} °C\n{pct:.0f}th pct of CMIP6",
-                      (marker, axis.get_ylim()[1] * 0.72), xytext=(8, 0), textcoords="offset points",
-                      fontsize=8.5, color=INK, ha="left", va="center")
+                      (marker, axis.get_ylim()[1] * 0.72), xytext=(-8 if on_right else 8, 0),
+                      textcoords="offset points", fontsize=8.5, color=INK,
+                      ha="right" if on_right else "left", va="center")
         axis.set_xlabel(xlabel, fontsize=9, color=INK)
         axis.set_ylabel("density", fontsize=9, color=INK)
         axis.set_title(title, fontsize=10.5, color=INK, loc="left")
@@ -264,13 +293,15 @@ def main() -> None:
             "background warming is differenced out of both models and observations."
             if args.index == "roni" else
             "Models and observations share one baseline, so the band includes the background Pacific warming.")
-    fig.text(0.005, -0.08, note + " The band is the ensemble's spread of ENSO states, not a forecast "
-             "envelope: its width is meaningful, its sign is not. Both distributions use the same years for "
-             f"models and observations, and the same season: ENSO is phase-locked, and {season_label} is not "
-             "interchangeable with the annual spread.", fontsize=8, color=MUTED)
-    fig.tight_layout()
+    # Wrapped: a single long line widens the saved canvas, because the tight
+    # bounding box has to contain it.
+    note = (note + " The band is the ensemble's spread of ENSO states, not a forecast envelope: its width is "
+            "meaningful, its sign is not. Both distributions use the same years for models and observations, "
+            f"and the same season: ENSO is phase-locked, and {season_label} is not interchangeable with the "
+            "annual spread.")
+    fig.text(0.01, 0.012, textwrap.fill(note, 150), fontsize=7.5, color=MUTED, va="bottom")
     out_path.parent.mkdir(parents=True, exist_ok=True)
-    fig.savefig(out_path, dpi=200, bbox_inches="tight")
+    fig.savefig(out_path, dpi=200)
     print(f"Wrote {out_path}")
 
     print(f"\nObserved peak since 2024: {peak.season} {int(peak.year)} = {peak_value:+.2f} °C"
