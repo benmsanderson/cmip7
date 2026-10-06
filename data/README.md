@@ -231,6 +231,16 @@ Three things to respect when using it:
   trend in the anomaly. The band and statistics use centred blocks only, which
   is why the band stops near 2041 rather than 2060; extending it means pulling
   model data past 2060.
+- **The distribution panels compare matched years and one season.** A model
+  window containing future warming is not comparable with an observed record
+  that stops today, so both sides use the same years; and ENSO is phase-locked,
+  so boreal summer (its low-variance season) is not interchangeable with the
+  annual spread. `--season` and `--dist-years` change both.
+- **Over the historical period models and observations agree.** Like-for-like
+  medians for 1950–2014 are −0.29 vs −0.28 (ONI) and −0.01 vs +0.02 (RONI). The
+  divergence is recent: for 2011–2026 observations sit 0.46 °C below the model
+  median on both indices. The models' spread is wider throughout (sd ~1.1 vs
+  ~0.8), so CMIP6 ENSO is too variable in every period.
 - **The scheme changes the headline percentile.** On the shared fixed baseline
   the JAS 2026 peak is at the 92.5th percentile of CMIP6 for 2011–2041; on the
   CPC scheme, which removes the trend from both sides, it is at the 96.6th. The
